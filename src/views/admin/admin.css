@@ -1,0 +1,43 @@
+body{
+    background: #000000;
+    color: #e7e9e9;
+    background: #f12711;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+    font-size: 19px;
+}
+
+.main-section{
+    margin:0 auto;
+    margin-top:5%;
+}
+.card{
+	opacity: .95;
+}
+.card-body{
+    background-color: #d1d3d6;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+label{
+	font-weight: bold;
+}
+
+.nav-tabs .nav-item a:not(.active){
+	background-color: #d1d3d6;
+}
+
+.nav-tabs{
+	border-bottom:0px;
+}
+
+.container .main-section .tab-content .tab-pane .card .card-body .table-responsive #titles{
+    height: 70%;
+    width: 67%;
+    border-color: rgb(0, 0,0);
+}
+.container .main-section .tab-content .tab-pane .card .card-header h4{
+    display: inline;
+    padding-right: 40%;
+}

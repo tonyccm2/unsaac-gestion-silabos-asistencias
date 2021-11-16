@@ -92,7 +92,7 @@ formLoginDocente.addEventListener('submit', async e => {
             }else{
                 if(document.password === docente.password){
                     console.log("password correcto");
-                    window.location="../tutorandos/tutorandos.html"; 
+                    window.location="../docente.html"; 
                     
                 }else{
                     alert("ERROR: Error en contraseña");
