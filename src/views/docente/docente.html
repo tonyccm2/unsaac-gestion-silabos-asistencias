@@ -1,12 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCENTE</title>
-</head>
+    <head>
+        <title>DOCENTE</title>
+        
+        <!--JQUERY-->
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script 
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script 
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        
+        <!-- Los iconos tipo Solid de Fontawesome-->
+        <link rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        
+        <!-- Nuestro css-->
+        <link rel="stylesheet" href="admin.css">
+    
+        <!-- FIREBASE -->
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
+        <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    
+    </head>
 <body>
-    BIENVENIDO DOCENTE
+    <div class="container">
+        <h3>BIENVENIDO DOCENTE</h3>
+    
+        <form id="formCargarAlumnos" class="form" role="form" autocomplete="off">
+            <div class="container">
+                <input type="file" id="inputfile">
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Cursos</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                            name="cursos"
+                            class="form-control"
+                            list="cursos"
+                            placeholder="Cursos"
+                            multiple>
+                        <datalist id="cursos">
+                            <option value="curso 1">
+                            <option value="curso 2">
+                        </datalist>
+                    </div>
+                </div>
+                <button id="btn-cargar" class="btn btn-primary p-1" type="submit">
+                    Cargar Alumnos
+                </button>
+            </div>
+        </form>
+    </div>
+    
 </body>
 </html>
