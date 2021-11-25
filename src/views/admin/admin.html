@@ -33,7 +33,7 @@
     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
-	
+	<script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
@@ -41,7 +41,16 @@
 <body>
 	<form>
 		<input type="button" value="Go back!" onclick="history.back()">
-	   </form>
+	</form>
+	<form id="formCargar" class="form" role="form" autocomplete="off">
+		<div class="container">
+			<input type="file" id="inputfile">
+			<button id="btn-cargar" class="btn btn-primary p-1" type="submit">
+				Cargar
+			</button>
+		</div>
+	</form>
+	
 	<div class="container">		
 	<div class="mx-auto col-sm-9 main-section" id="myTab" role="tablist">
 		<ul class="nav nav-tabs justify-content-end">
@@ -187,6 +196,6 @@
 			</div>
 		</div>
 	</div>
-    <script src="../../database/admin.js"></script>
+    <script type="module" src="../../database/admin.js"></script>
 </body>
 </html>

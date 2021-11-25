@@ -1,3 +1,4 @@
+
 // Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyC0zer2obvU5MQrJ2Pe-8_MMCzuwbB-ItU",
@@ -8,7 +9,6 @@ var firebaseConfig = {
   appId: "1:933581286361:web:bbfe963bc60d1a770fc7c8",
 };
 // Initialize Firebase
-
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
@@ -171,3 +171,77 @@ formDocente.addEventListener("submit", async (e) => {
     console.log(error);
   }
 });
+
+const inputfile = document.getElementById('inputfile')
+
+const formCargar = document.getElementById("formCargar");
+
+inputfile.addEventListener('change', () => {
+  readXlsxFile(inputfile.files[0]).then((data) => {
+    
+    var cod = ""
+    data.forEach(row => {
+      if(cod != row[0]){
+        cod = row[0]
+        console.log(
+          row[0],
+          row[1],
+          row[2],
+          row[3],
+          row[13])
+      }
+    });
+    
+    // `rows` is an array of rows
+    // each row being an array of cells.
+  })
+}) 
+formCargar.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    readXlsxFile(inputfile.files[0]).then((data) => {
+      var cod = ""
+      data.forEach(row => {
+        if(cod != row[0]){
+          cod = row[0]
+          saveCurso(
+            row[0],
+            row[1],
+            row[2],
+            row[3],
+            row[13]
+          );
+          saveDocente(
+            row[13],
+            row[13],
+            row[13],
+            "apPaterno.value",
+            "apMaterno.value",
+            "codigoEP.value",
+            "categoria.value"
+          );
+        }
+      });
+    })
+    
+    formCargar.reset();
+  } catch (error) {
+    console.log(error);
+  }
+});
+const saveCurso = (
+  codigo,
+  carrera,
+  curso,
+  cred,
+  docente
+) =>
+  db.collection("cursos").doc().set({
+    codigo,
+    carrera,
+    curso,
+    cred,
+    docente
+  });
+  const getCurso = (id) => db.collection("cursos").doc(id).get();
