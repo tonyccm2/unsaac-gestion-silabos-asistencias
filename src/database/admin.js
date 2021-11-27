@@ -28,8 +28,6 @@ const saveDocente = (
   codigo,
   password,
   nombres,
-  apPaterno,
-  apMaterno,
   codigoEP,
   categoria
 ) =>
@@ -37,8 +35,6 @@ const saveDocente = (
     codigo,
     password,
     nombres,
-    apPaterno,
-    apMaterno,
     codigoEP,
     categoria,
   });
@@ -70,8 +66,6 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           <tr>
             <td>${docente.codigo}</td>
             <td>${docente.nombres}</td>
-            <td>${docente.apPaterno}</td>
-            <td>${docente.apMaterno}</td>
             <td>${docente.codigoEP}</td>
             <td>${docente.categoria}</td>
             <td>
@@ -110,8 +104,6 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           formDocente["codigo"].value = docente.codigo;
           formDocente["password"].value = docente.contrasenia;
           formDocente["nombres"].value = docente.nombres;
-          formDocente["apellido-paterno"].value = docente.apPaterno;
-          formDocente["apellido-materno"].value = docente.apMaterno;
           formDocente["codigo-ep"].value = docente.codigoEP;
           formDocente["categoria"].value = docente.categoria;
           //mostramos mas???
@@ -133,8 +125,6 @@ formDocente.addEventListener("submit", async (e) => {
   const codigo = formDocente["codigo"];
   const password = formDocente["password"];
   const nombres = formDocente["nombres"];
-  const apPaterno = formDocente["apellido-paterno"];
-  const apMaterno = formDocente["apellido-materno"];
   const codigoEP = formDocente["codigo-ep"];
   const categoria = formDocente["categoria"];
   //intenta hacer la peticion sin lanzar error y cerrar
@@ -144,8 +134,6 @@ formDocente.addEventListener("submit", async (e) => {
         codigo.value,
         password.value,
         nombres.value,
-        apPaterno.value,
-        apMaterno.value,
         codigoEP.value,
         categoria.value
       );
@@ -154,8 +142,6 @@ formDocente.addEventListener("submit", async (e) => {
         codigo: codigo.value,
         password: password.value,
         nombres: nombres.value,
-        apPaterno: apPaterno.value,
-        apMaterno: apMaterno.value,
         codigoEP: codigoEP.value,
         categoria: categoria.value,
       });
@@ -172,12 +158,15 @@ formDocente.addEventListener("submit", async (e) => {
   }
 });
 
-const inputfile = document.getElementById('inputfile')
+const inputfileAcademica = document.getElementById('inputfile-Academica')
+const inputfileDocente = document.getElementById('inputfile-Docente')
 
-const formCargar = document.getElementById("formCargar");
+const formCargaAcademica = document.getElementById("formCargaAcademica");
+const formCargaDocente = document.getElementById("formCargaDocente");
 
-inputfile.addEventListener('change', () => {
-  readXlsxFile(inputfile.files[0]).then((data) => {
+
+inputfileAcademica.addEventListener('change', () => {
+  readXlsxFile(inputfileAcademica.files[0]).then((data) => {
     
     var cod = ""
     data.forEach(row => {
@@ -195,8 +184,27 @@ inputfile.addEventListener('change', () => {
     // `rows` is an array of rows
     // each row being an array of cells.
   })
-}) 
-formCargar.addEventListener("submit", async (e) => {
+});
+inputfileDocente.addEventListener('change', () => {
+  readXlsxFile(inputfileDocente.files[0]).then((data) => {
+    
+    var cod = ""
+    data.forEach(row => {
+      if(cod != row[0]){
+        cod = row[0]
+        console.log(
+          row[0],
+          row[1])
+      }
+    });
+    
+    // `rows` is an array of rows
+    // each row being an array of cells.
+  })
+});
+
+//boton cargar cursos
+formCargaAcademica.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   try {
@@ -212,24 +220,36 @@ formCargar.addEventListener("submit", async (e) => {
             row[3],
             row[13]
           );
-          saveDocente(
-            row[13],
-            row[13],
-            row[13],
-            "apPaterno.value",
-            "apMaterno.value",
-            "codigoEP.value",
-            "categoria.value"
-          );
         }
       });
     })
-    
     formCargar.reset();
   } catch (error) {
     console.log(error);
   }
 });
+//boton cargar docentes
+formCargaDocente.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    readXlsxFile(inputfile.files[0]).then((data) => {
+      data.forEach(row => {
+          saveDocente(
+            row[1],
+            row[1],
+            row[1],
+            "codigoEP",
+            "categoria"
+          );
+      });
+    })
+    formCargar.reset();
+  } catch (error) {
+    console.log(error);
+  }
+});
+//guardar carga academica como curso
 const saveCurso = (
   codigo,
   carrera,
@@ -245,3 +265,5 @@ const saveCurso = (
     docente
   });
   const getCurso = (id) => db.collection("cursos").doc(id).get();
+
+  
