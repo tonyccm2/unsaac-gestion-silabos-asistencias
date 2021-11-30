@@ -13,8 +13,8 @@ var firebaseConfig = {
   
   const db = firebase.firestore();
   
-  const formCourses = document.getElementById("formCourses");
-  const CoursesContainer = document.getElementById("lista-Courses");
+  const docentesContainer = document.getElementById("lista-cursos");
+  const formDocente = document.getElementById("formCurso");
   
   let editStatus = false;
   let id = "";
@@ -34,6 +34,8 @@ var firebaseConfig = {
         nameCourse,
         categoryCourse,
     });
+  // recupera el codigo
+  const codigos=() => db.collection('codigos').get();
   //recupera los Courses
   const getCourses = () => db.collection("Courses").get();
   
@@ -51,58 +53,72 @@ var firebaseConfig = {
   //ventanas y funcionalidades
   
   window.addEventListener("DOMContentLoaded", async (e) => {
+    const mostrarcodigo= await codigos();
+    let red;
+    mostrarcodigo.forEach(doc =>{
+        //console.log(doc.data().codigo);
+        red =doc.data().codigo;  
+    })
+    console.log(red);
     onGetCourses((querySnapshot) => {
-      CoursesContainer.innerHTML = "";
-  
+      docentesContainer.innerHTML = "";
       querySnapshot.forEach((doc) => {
-        const Courses = doc.data();
-        // FRONT-END ?????????????
-        CoursesContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
-          <thead>          
-            <tr>
-              <td>${Courses.codCourse}</td>
-              <td>${Courses.nameCourse}</td>
-              <td>${Courses.categoryCourse}</td>
-              <td>
-                <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-                🗑 Delete
-                </button>
-                <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-                🖉 Edit
-                </button>
-              </td>
-            </tr>
-          </thead>
-        </table>`;
+        const curso = doc.data();
+        if(curso.docente==red)
+        {
+                // FRONT-END ?????????????
+          docentesContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+            <thead>          
+              <tr>
+                <td>${curso.codigo}</td>
+                <td>${curso.carrera}</td>
+                <td>${curso.curso}</td>
+                <td>${curso.cred}</td>
+                <td>
+                  <button class="btn btn-primary btn-delete" data-id="${doc.id}">
+                  🗑 Delete
+                  </button>
+                  <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+                  🖉 Edit
+                  </button>
+                </td>
+              </tr>
+            </thead>
+          </table>`;
+        }
+  
       });
+  
       //funcionalidad boton-borrar
-      const btnsDelete = CoursesContainer.querySelectorAll(".btn-delete");
+      const btnsDelete = docentesContainer.querySelectorAll(".btn-delete");
       btnsDelete.forEach((btn) =>
         btn.addEventListener("click", async (e) => {
           console.log(e.target.dataset.id);
           try {
-            //borra el Courses o manda mensaje aviso
-            await deleteCourses(e.target.dataset.id);
+            //borra el docente o manda mensaje aviso
+            await deleteCurso(e.target.dataset.id);
           } catch (error) {
             console.log(error);
           }
         })
       );
       // funcionalidad boton-editar
-      const btnsEdit = CoursesContainer.querySelectorAll(".btn-edit");
+      const btnsEdit = docentesContainer.querySelectorAll(".btn-edit");
       btnsEdit.forEach((btn) => {
         btn.addEventListener("click", async (e) => {
           try {
-            const doc = await getCourses(e.target.dataset.id);
-            const Courses = doc.data();
+            const doc = await getCurso(e.target.dataset.id);
+            const curso = doc.data();
             // recuperamos al form todos los valores
-            formCourses["codCourse"].value = Courses.codCourse;
-            formCourses["nameCourse"].value = Courses.nameCourse;
-            formCourses["categoryCourse"].value = Courses.categoryCourse;
+            formDocente["CodigoCurso"].value = curso.codigo;
+            formDocente["CarreraCurso"].value = curso.carrera;
+            formDocente["CursoCurso"].value = curso.curso;
+            formDocente["CreditoCurso"].value = curso.cred;
+  
             //mostramos mas???
             editStatus = true;
             id = doc.id;
-            formCourses["btn-Courses-form"].innerText = "Update";
+            formDocente["btn-docente-form"].innerText = "Update";
             //actualiza
           } catch (error) {
             console.log(error);
