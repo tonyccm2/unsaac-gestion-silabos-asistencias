@@ -15,6 +15,7 @@ var firebaseConfig = {
   
   const docentesContainer = document.getElementById("lista-cursos");
   const formDocente = document.getElementById("formCurso");
+  const formCerrarSesion = document.getElementById("formCerrarSesion");
   
   let editStatus = false;
   let id = "";
@@ -35,32 +36,39 @@ var firebaseConfig = {
         categoryCourse,
     });
   // recupera el codigo
+  const onGetCodigos = (callback) =>
+    db.collection("codigos").onSnapshot(callback);
   const codigos=() => db.collection('codigos').get();
-  //recupera los Courses
-  const getCourses = () => db.collection("Courses").get();
+
+  const deleteCodigo = (id) => db.collection("codigos").doc(id).delete();
+
+
+  //recupera los cursos
+  const getCursos = () => db.collection("cursos").get();
   
-  const onGetCourses = (callback) =>
-    db.collection("Courses").onSnapshot(callback);
+  const onGetCursos = (callback) =>
+    db.collection("cursos").onSnapshot(callback);
   //borrar
-  const deleteCourses = (id) => db.collection("Courses").doc(id).delete();
+  const deleteCursos = (id) => db.collection("cursos").doc(id).delete();
   //recupera 1 Courses por ID
-  const getCourses = (id) => db.collection("Courses").doc(id).get();
+  const getCurso = (id) => db.collection("cursos").doc(id).get();
   //actualiza
-  const updateCourses = (id, updatedCourses) =>
-    db.collection("Courses").doc(id).update(updatedCourses);
+  const updateCursos = (id, updatedCourses) =>
+    db.collection("cursos").doc(id).update(updatedCourses);
   
   //******************************************************************/
   //ventanas y funcionalidades
   
+  let idDocente;
   window.addEventListener("DOMContentLoaded", async (e) => {
-    const mostrarcodigo= await codigos();
     let red;
-    mostrarcodigo.forEach(doc =>{
-        //console.log(doc.data().codigo);
-        red =doc.data().codigo;  
+    onGetCodigos((querySnapshot) => {
+      querySnapshot.forEach(doc =>{
+        red = doc.data().codigodocente
+        idDocente = doc.id
+      })
     })
-    console.log(red);
-    onGetCourses((querySnapshot) => {
+    onGetCursos((querySnapshot) => {
       docentesContainer.innerHTML = "";
       querySnapshot.forEach((doc) => {
         const curso = doc.data();
@@ -76,10 +84,10 @@ var firebaseConfig = {
                 <td>${curso.cred}</td>
                 <td>
                   <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-                  🗑 Delete
+                  Asistencia
                   </button>
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-                  🖉 Edit
+                  Silabus
                   </button>
                 </td>
               </tr>
@@ -127,37 +135,20 @@ var firebaseConfig = {
       });
     });
   });
-  //funcionalidad subir a la nube
-  formCourses.addEventListener("submit", async (e) => {
-    e.preventDefault();
   
-    const codCourse = formCourses["codCourse"];
-    const nameCourse = formCourses["nameCourse"];
-    const categoryCourse = formCourses["categoryCourse"];
-    //intenta hacer la peticion sin lanzar error y cerrar
-    try {
-      if (!editStatus) {
-        await saveCourses(
-          codCourse.value,
-          nameCourse.value,
-          categoryCourse.value,
-        );
-      } else {
-        await updateCourses(id, {
-          codCourse: codCourse.value,
-          nameCourse: nameCourse.value,
-          categoryCourse: categoryCourse.value,
-        });
-        //regresa a estar vacio y poder usarla nuevamente
-        editStatus = false;
-        id = "";
-        formCourses["btn-Courses-form"].innerText = "Save";
-      }
-  
-      formCourses.reset();
-      codigo.focus(); // title.focus ??
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  
+  //funcionalidad cerrar sesion
+formCerrarSesion.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    
+    //borra el docente o manda mensaje aviso
+    await deleteCodigo(idDocente);
+    console.log("se cerró la sesion correctamente");
+    window.location="../login/login.html"; 
+    
+     // title.focus ??
+  } catch (error) {
+    console.log(error);
+  }
+});

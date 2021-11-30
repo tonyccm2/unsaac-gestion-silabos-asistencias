@@ -208,7 +208,7 @@ formCargaAcademica.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   try {
-    readXlsxFile(inputfile.files[0]).then((data) => {
+    readXlsxFile(inputfileAcademica.files[0]).then((data) => {
       var cod = ""
       data.forEach(row => {
         if(cod != row[0]){
@@ -223,7 +223,7 @@ formCargaAcademica.addEventListener("submit", async (e) => {
         }
       });
     })
-    formCargar.reset();
+    formCargaAcademica.reset();
   } catch (error) {
     console.log(error);
   }
@@ -233,7 +233,7 @@ formCargaDocente.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   try {
-    readXlsxFile(inputfile.files[0]).then((data) => {
+    readXlsxFile(inputfileDocente.files[0]).then((data) => {
       data.forEach(row => {
           saveDocente(
             row[1],
@@ -244,7 +244,7 @@ formCargaDocente.addEventListener("submit", async (e) => {
           );
       });
     })
-    formCargar.reset();
+    formCargaDocente.reset();
   } catch (error) {
     console.log(error);
   }

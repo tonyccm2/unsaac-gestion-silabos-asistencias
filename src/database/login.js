@@ -73,11 +73,7 @@ formLoginDocente.addEventListener('submit', async e => {
         name: formNameDocente.value,
         password: formPasswordDocente.value,
     }
-    const codigodocente = formLoginDocente['nameDocente'].value;
-    const respuesta= await db.collection('codigos').doc().set({
-        codigodocente,
-    })
-    console.log(respuesta);
+    
     try {
         if(docente.name !== ''){
             const document = {
@@ -98,6 +94,11 @@ formLoginDocente.addEventListener('submit', async e => {
             }else{
                 if(document.password === docente.password){
                     console.log("password correcto");
+                    const codigodocente = formLoginDocente['nameDocente'].value;
+                    const respuesta= await db.collection('codigos').doc().set({
+                        codigodocente,
+                    })
+                    console.log(respuesta);
                     window.location="../docente/docente.html"; 
                     
                 }else{
