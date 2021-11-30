@@ -13,11 +13,11 @@
 
 - **Robert Wilvert Alzamora Paredes** - _Docente_ - [Concytec]
 #### Integrantes de grupo:✒️
-- **Cconislla Medina Anthony Aldair 161756**
-- **Ccuito Quispe Jhon Albert	      161757** 
-- **Mamani Quinta Michael Antonni   164566**
-- **Pérez Tomaylla Bruno 	          130322**
-- **Quispe Tacuri Rudi 	            161135**
+- **Cconislla Medina Anthony Aldair    161756**
+- **Ccuito Quispe Jhon Albert          161757** 
+- **Mamani Quinta Michael Antonni      164566**
+- **Pérez Tomaylla Bruno               130322**
+- **Quispe Tacuri Rudi                 161135**
 
 #### Trabajo:
 
@@ -35,6 +35,8 @@
 
 ### Login Administrador y docente
 - para Docente
-    usuario:nombre completo del docente contraseña:nombre completo del docente
+    usuario:nombre completo del docente 
+    contraseña:nombre completo del docente
 - para administrador
-    usuario:admi contraseña:admi
+    usuario:admi 
+    contraseña:admi
