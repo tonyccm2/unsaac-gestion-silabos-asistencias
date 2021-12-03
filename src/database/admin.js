@@ -25,18 +25,22 @@ let id = "";
  * @param {string} description the description of the Task
  */
 const saveDocente = (
-  codigo,
+  codigo_docente,
   password,
-  nombres,
-  codigoEP,
-  categoria
+  nombre,
+  ap,
+  am,
+  categoria,
+  regimen
 ) =>
   db.collection("docentes").doc().set({
-    codigo,
+    codigo_docente,
     password,
-    nombres,
-    codigoEP,
+    nombre,
+    ap,
+    am,
     categoria,
+    regimen
   });
 //recupera los docentes
 const getDocentes = () => db.collection("docentes").get();
@@ -64,10 +68,12 @@ window.addEventListener("DOMContentLoaded", async (e) => {
       docentesContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
         <thead>          
           <tr>
-            <td>${docente.codigo}</td>
-            <td>${docente.nombres}</td>
-            <td>${docente.codigoEP}</td>
-            <td>${docente.categoria}</td>
+            <td class="h6">${docente.codigo_docente}</td>
+            <td class="h6">${docente.nombre}</td>
+            <td class="h6">${docente.ap}</td>
+            <td class="h6">${docente.am}</td>
+            <td class="h6">${docente.categoria}</td>
+            <td class="h6">${docente.regimen}</td>
             <td>
               <button class="btn btn-primary btn-delete" data-id="${doc.id}">
               🗑 Delete
@@ -101,11 +107,13 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           const doc = await getDocente(e.target.dataset.id);
           const docente = doc.data();
           // recuperamos al form todos los valores
-          formDocente["codigo"].value = docente.codigo;
+          formDocente["codigo"].value = docente.codigo_docente;
           formDocente["password"].value = docente.contrasenia;
-          formDocente["nombres"].value = docente.nombres;
-          formDocente["codigo-ep"].value = docente.codigoEP;
+          formDocente["nombre"].value = docente.nombre;
+          formDocente["ap"].value = docente.ap;
+          formDocente["am"].value = docente.am;
           formDocente["categoria"].value = docente.categoria;
+          formDocente["regimen"].value = docente.regimen;
           //mostramos mas???
           editStatus = true;
           id = doc.id;
@@ -122,28 +130,34 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 formDocente.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const codigo = formDocente["codigo"];
+  const codigo_docente = formDocente["codigo"];
   const password = formDocente["password"];
-  const nombres = formDocente["nombres"];
-  const codigoEP = formDocente["codigo-ep"];
+  const nombre = formDocente["nombre"];
+  const ap = formDocente["ap"];
+  const am = formDocente["am"];
   const categoria = formDocente["categoria"];
+  const regimen = formDocente["regimen"];
   //intenta hacer la peticion sin lanzar error y cerrar
   try {
     if (!editStatus) {
       await saveDocente(
-        codigo.value,
+        codigo_docente.value,
         password.value,
-        nombres.value,
-        codigoEP.value,
-        categoria.value
+        nombre.value,
+        ap.value,
+        am.value,
+        categoria.value,
+        regimen.value
       );
     } else {
       await updateDocente(id, {
-        codigo: codigo.value,
+        codigo: codigo_docente.value,
         password: password.value,
-        nombres: nombres.value,
-        codigoEP: codigoEP.value,
+        nombre: nombre.value,
+        ap: ap.value,
+        am: am.value,
         categoria: categoria.value,
+        regimen: regimen.value,
       });
       //regresa a estar vacio y poder usarla nuevamente
       editStatus = false;
@@ -165,26 +179,6 @@ const formCargaAcademica = document.getElementById("formCargaAcademica");
 const formCargaDocente = document.getElementById("formCargaDocente");
 
 
-inputfileAcademica.addEventListener('change', () => {
-  readXlsxFile(inputfileAcademica.files[0]).then((data) => {
-    
-    var cod = ""
-    data.forEach(row => {
-      if(cod != row[0]){
-        cod = row[0]
-        console.log(
-          row[0],
-          row[1],
-          row[2],
-          row[3],
-          row[13])
-      }
-    });
-    
-    // `rows` is an array of rows
-    // each row being an array of cells.
-  })
-});
 inputfileDocente.addEventListener('change', () => {
   readXlsxFile(inputfileDocente.files[0]).then((data) => {
     
@@ -203,31 +197,6 @@ inputfileDocente.addEventListener('change', () => {
   })
 });
 
-//boton cargar cursos
-formCargaAcademica.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  try {
-    readXlsxFile(inputfileAcademica.files[0]).then((data) => {
-      var cod = ""
-      data.forEach(row => {
-        if(cod != row[0]){
-          cod = row[0]
-          saveCurso(
-            row[0],
-            row[1],
-            row[2],
-            row[3],
-            row[13]
-          );
-        }
-      });
-    })
-    formCargaAcademica.reset();
-  } catch (error) {
-    console.log(error);
-  }
-});
 //boton cargar docentes
 formCargaDocente.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -239,8 +208,10 @@ formCargaDocente.addEventListener("submit", async (e) => {
             row[1],
             row[1],
             row[1],
-            "codigoEP",
-            "categoria"
+            "ap",
+            "am",
+            "categoria",
+            "regimen"
           );
       });
     })
@@ -249,21 +220,137 @@ formCargaDocente.addEventListener("submit", async (e) => {
     console.log(error);
   }
 });
-//guardar carga academica como curso
-const saveCurso = (
-  codigo,
+
+
+//guardar carga academica
+const saveCarga = (
+  codigo_carga,
   carrera,
   curso,
   cred,
+  tipo,
+  gpo,
+  ht,
+  hp,
+  dia,
+  hr_inicio,
+  hr_fin,
+  aula,
   docente
 ) =>
-  db.collection("cursos").doc().set({
-    codigo,
+  db.collection("carga").doc().set({
+    codigo_carga,
     carrera,
     curso,
     cred,
+    tipo,
+    gpo,
+    ht,
+    hp,
+    dia,
+    hr_inicio,
+    hr_fin,
+    aula,
     docente
   });
-  const getCurso = (id) => db.collection("cursos").doc(id).get();
+  const getCarga = (id) => db.collection("carga").doc(id).get();
 
   
+//boton cargar carga academica
+formCargaAcademica.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    readXlsxFile(inputfileAcademica.files[0]).then((data) => {
+      var cod = ""
+      data.forEach(row => {
+        if(cod != row[0]){
+          cod = row[0]
+          saveCarga(
+            row[0],
+            row[1],
+            row[2],
+            row[3],
+            row[4],
+            row[5],
+            row[6],
+            row[7],
+            row[8],
+            row[9],
+            row[10],
+            row[11],
+            row[13]
+          );
+        }
+      });
+    })
+    formCargaAcademica.reset();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+inputfileAcademica.addEventListener('change', () => {
+  readXlsxFile(inputfileAcademica.files[0]).then((data) => {
+    
+    var cod = ""
+    data.forEach(row => {
+      if(cod != row[0]){
+        cod = row[0]
+        console.log(
+          row[0],
+          row[1],
+          row[2],
+          row[3],
+          row[4],
+          row[5],
+          row[6],
+          row[7],
+          row[8],
+          row[9],
+          row[10],
+          row[11],
+          row[13]
+          )
+      }
+    });
+    // `rows` is an array of rows
+    // each row being an array of cells.
+  })
+});
+
+
+//cursos
+
+//guardar carga academica como curso
+const saveCurso = (
+  codigo_carga,
+  carrera,
+  curso,
+  cred,
+  tipo,
+  gpo,
+  ht,
+  hp,
+  dia,
+  hr_inicio,
+  hr_fin,
+  aula,
+  docente
+) =>
+  db.collection("cursos").doc().set({
+    codigo_carga,
+    carrera,
+    curso,
+    cred,
+    tipo,
+    gpo,
+    ht,
+    hp,
+    dia,
+    hr_inicio,
+    hr_fin,
+    aula,
+    docente
+  });

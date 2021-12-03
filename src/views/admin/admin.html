@@ -47,6 +47,18 @@
 			<div class="card-header p-2">
 				<h4>Subir carga academica</h4>
 			</div>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-striped"" id = "titles">
+					<td>Codigo</td>
+					<td>Nombre</td>
+					<td>AP</td>
+					<td>AM</td>
+					<td>Categoria</td>
+					<td>Regimen</td>
+				</table>
+				<table id="prelista-docentes" class="table table-bordered table-hover table-striped">	
+				</table>
+			</div>
 			<div>
 				<input type="file" id="inputfile-Academica" class="p-2">
 			</div>
@@ -99,9 +111,11 @@
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-striped"" id = "titles">
 								<td>Codigo</td>
-								<td>Nombres</td>
-								<td>EP</td>
+								<td>Nombre</td>
+								<td>AP</td>
+								<td>AM</td>
 								<td>Categoria</td>
+								<td>Regimen</td>
 							</table>
 							<table id="lista-docentes" class="table table-bordered table-hover table-striped">	
 							</table>
@@ -144,19 +158,30 @@
 								<div class="col-lg-9">
 									<input 
                                         type="text"
-                                        id="nombres"
+                                        id="nombre"
                                         placeholder="Nombres"
                                         class="form-control"
                                         >
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-lg-3 col-form-label form-control-label">Escuela Profesional</label>
+								<label class="col-lg-3 col-form-label form-control-label">Nombres</label>
 								<div class="col-lg-9">
 									<input 
                                         type="text"
-                                        id="codigo-ep"
-                                        placeholder="Codigo EP"
+                                        id="ap"
+                                        placeholder="Apellido Paterno"
+                                        class="form-control"
+                                        >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-lg-3 col-form-label form-control-label">Nombres</label>
+								<div class="col-lg-9">
+									<input 
+                                        type="text"
+                                        id="AM"
+                                        placeholder="Apellido Materno"
                                         class="form-control"
                                         >
 								</div>
@@ -171,8 +196,26 @@
                                         placeholder="Categoría"
                                         multiple>
                                     <datalist id="categoria">
-                                        <option value="Nombrado">
+                                        <option value="Auxiliar">
+										<option value="Asociado">
+										<option value="Principal">
                                         <option value="Contratado">
+                                    </datalist>
+								</div>
+							</div>
+                            <div class="form-group row">
+								<label class="col-lg-3 col-form-label form-control-label">Categoria</label>
+								<div class="col-lg-9">
+									<input type="text"
+                                        name="regimen"
+                                        class="form-control"
+                                        list="regimen"
+                                        placeholder="Regimen"
+                                        multiple>
+                                    <datalist id="categoria">
+                                        <option value="T.parcial">
+										<option value="T.Completo">
+										<option value="D.Exclusiva">
                                     </datalist>
 								</div>
 							</div>
