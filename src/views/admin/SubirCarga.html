@@ -44,9 +44,7 @@
 	<div class="container-fluid">
         <div class="row justify-content-center align-content-center">
             <div class="col-8 barra">
-                <img src="unsaac.png" width="55" height="55" clear="left">Sistema UNSAAC
-                <h4 class="text-light"></h4>
-            </div>
+                 <img src="unsaac.png" width="55" height="55" clear="left">Sistema UNSAAC
             <div class="col-4 text-right barra">
                 <ul class="navbar-nav mr-auto">
                     <li>
@@ -73,11 +71,42 @@
                 </nav>
             </div>
             <main  class="main col">
-                <div class="row justify-content-center align-content-center text-center">
+                
                     <div class="columna col-lg-6">
-                        BIENVENIDO ADMINISTRADOR
+                        
+            
+                       
+    <form id="formCargaAcademica" class="form" role="form" autocomplete="off">
+
+        <div class="container card p-3">
+            <div class="card-header p-2">
+                <h4>Subir carga academica</h4>
+            </div>
+            <div>
+                <input type="file" id="inputfile-Academica" class="p-2">
+            </div>
+            <button id="btn-cargar-cursos" class="btn btn-primary p-2" type="submit">
+                Cargar
+
+            </button>
+        </div>
+
+        <div class="table-responsive">
+
+                <table class="table table-bordered table-hover table-striped"" id = "titles">
+                    <td>Codigo</td>
+                    <td>Nombre</td>
+                    <td>AP</td>
+                    <td>AM</td>
+                    <td>Categoria</td>
+                    <td>Regimen</td>
+                </table>
+                <table id="prelista-docentes" class="table table-bordered table-hover table-striped">   
+                </table>
+            </div>
+    </form>
                     </div>
-                </div>
+                
                 
             </main>
             
