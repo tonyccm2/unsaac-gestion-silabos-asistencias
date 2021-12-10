@@ -83,8 +83,8 @@ formLoginDocente.addEventListener('submit', async e => {
             const collectionDocente = await db.collection("docentes").get().then((querySnapshot) => {
                 console.log(querySnapshot);
                 querySnapshot.forEach((doc) => {
-                    if(doc.data().codigo === docente.name){
-                        document.name = doc.data().codigo
+                    if(doc.data().codigo_docente === docente.name){
+                        document.name = doc.data().codigo_docente
                         document.password = doc.data().password
                     }
                 });
