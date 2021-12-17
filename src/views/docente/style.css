@@ -6,15 +6,21 @@ body {
 }
 
 .barra {
-    background: #D37B09;
+    text-orientation: upright;
+    background: #F5F5F5;
     padding-top: 15px;
     padding-bottom: 15px;
     margin: 0;
+    color: #062236;
+}
+
+.text-light {
+    color: #062236 !important;
 }
 
 .dropdown-menu {
     margin: 17px;
-    background: #262a34;
+    background: #062236;
     color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.568);
 }
@@ -56,8 +62,9 @@ body {
 }
 
 .text-right {
-    background: #D37B09;
+    background: #F5F5F5;
     padding: 50;
+    
 }
 
 
