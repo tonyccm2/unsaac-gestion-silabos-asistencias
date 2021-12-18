@@ -2,20 +2,22 @@
 body {
     background: #f1f1f1;
     font-size: 20px;
-    color: #FFFFFF;
+    color: #062236;
 }
 
 .barra {
     text-orientation: upright;
     background: #F5F5F5;
     padding-top: 15px;
-    padding-bottom: 15px;
     margin: 0;
     color: #062236;
+    text-align: upleft;
 }
 
-.text-light {
-    color: #062236 !important;
+.UNSAAC_Tittle {
+    color: #062236;
+    font-size: 50px;
+    margin-left: 50%; 
 }
 
 .dropdown-menu {
@@ -180,7 +182,7 @@ body {
 {
     color: #fff;
     background-color: #ECA100;
-    border-color: #007bff;
+    border-color: #060C2D;
 }
 
 .form
