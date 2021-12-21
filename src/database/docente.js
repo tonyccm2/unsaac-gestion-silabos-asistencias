@@ -43,18 +43,18 @@ var firebaseConfig = {
   const deleteCodigo = (id) => db.collection("codigos").doc(id).delete();
 
 
-  //recupera los cursos
-  const getCursos = () => db.collection("cursos").get();
+  //recupera los carga
+  const getCarga = () => db.collection("carga").get();
   
-  const onGetCursos = (callback) =>
-    db.collection("cursos").onSnapshot(callback);
+  const onGetCarga = (callback) =>
+    db.collection("carga").onSnapshot(callback);
   //borrar
-  const deleteCursos = (id) => db.collection("cursos").doc(id).delete();
+  const deleteCarga = (id) => db.collection("carga").doc(id).delete();
   //recupera 1 Courses por ID
-  const getCurso = (id) => db.collection("cursos").doc(id).get();
+  const getCargaid = (id) => db.collection("carga").doc(id).get();
   //actualiza
-  const updateCursos = (id, updatedCourses) =>
-    db.collection("cursos").doc(id).update(updatedCourses);
+  const updateCarga = (id, updatedCourses) =>
+    db.collection("carga").doc(id).update(updatedCourses);
   
   //******************************************************************/
   //ventanas y funcionalidades
@@ -68,11 +68,14 @@ var firebaseConfig = {
         idDocente = doc.id
       })
     })
-    onGetCursos((querySnapshot) => {
+    var value = localStorage.getItem('docente');
+    console.log(value)
+    onGetCarga((querySnapshot) => {
       docentesContainer.innerHTML = "";
       querySnapshot.forEach((doc) => {
         const curso = doc.data();
-        if(curso.docente==red)
+        console.log(curso.docente)
+        if(curso.docente==value)
         {
                 // FRONT-END ?????????????
           docentesContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">

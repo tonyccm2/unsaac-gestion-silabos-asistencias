@@ -94,6 +94,8 @@ formLoginDocente.addEventListener('submit', async e => {
             }else{
                 if(document.password === docente.password){
                     console.log("password correcto");
+                    
+                    localStorage.setItem('docente', document.name);
                     const codigodocente = formLoginDocente['nameDocente'].value;
                     const respuesta= await db.collection('codigos').doc().set({
                         codigodocente,
