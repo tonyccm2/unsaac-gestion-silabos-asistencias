@@ -62,12 +62,6 @@ var firebaseConfig = {
   let idDocente;
   window.addEventListener("DOMContentLoaded", async (e) => {
     let red;
-    onGetCodigos((querySnapshot) => {
-      querySnapshot.forEach(doc =>{
-        red = doc.data().codigodocente
-        idDocente = doc.id
-      })
-    })
     var value = localStorage.getItem('docente');
     console.log(value)
     onGetCarga((querySnapshot) => {
@@ -81,7 +75,7 @@ var firebaseConfig = {
           docentesContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
             <thead>          
               <tr>
-                <td>${curso.codigo}</td>
+                <td>${curso.codigo_carga}</td>
                 <td>${curso.carrera}</td>
                 <td>${curso.curso}</td>
                 <td>${curso.cred}</td>
@@ -121,7 +115,7 @@ var firebaseConfig = {
             const doc = await getCurso(e.target.dataset.id);
             const curso = doc.data();
             // recuperamos al form todos los valores
-            formDocente["CodigoCurso"].value = curso.codigo;
+            formDocente["CodigoCurso"].value = curso.codigo_carga;
             formDocente["CarreraCurso"].value = curso.carrera;
             formDocente["CursoCurso"].value = curso.curso;
             formDocente["CreditoCurso"].value = curso.cred;
