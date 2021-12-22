@@ -80,7 +80,7 @@ var firebaseConfig = {
                 <td>${curso.curso}</td>
                 <td>${curso.cred}</td>
                 <td>
-                  <button class="btn btn-primary btn-delete" data-id="${doc.id}">
+                  <a href="../../views/docente/RegistroAsistencia.html"><button class="btn btn-primary btn-delete" data-id="${doc.id}">
                   Asistencia
                   </button>
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">

@@ -107,8 +107,8 @@ body {
 }
 
 .main .columna {
-    padding-left: 90px;
-    padding-right: 80px;
+    padding-left: 20px;
+    padding-right: 30px;
 }
 
 
@@ -185,17 +185,26 @@ body {
     background-color: #ECA100;
     border-color: #060C2D;
 }
-
-.form
+.myTab{
+    margin-left: auto;
+}
+.form-control
 {
-    height: 250%;
-    width: 250%;
+    width: 58%;
 }
 .main-section{
-    margin:0 auto;
+    margin:auto;
     margin-top:12%;
+    
+}
+
+.tab-content{
+    padding: 2em;
 }
 .card{
+
+    height: 150%;
+    width: 150%;
     opacity: .95;
 }
 .card-body{
@@ -211,10 +220,15 @@ label{
     background-color: #d1d3d6;
 }
 
+.modal-content{
+    width: 250%;
+}
+
 .nav-tabs{
     border-bottom:0px;
     height: 250%;
     width: 250%;
+    padding: auto;
 }
 .tab-pane
 {
