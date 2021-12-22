@@ -82,7 +82,7 @@ var firebaseConfig = {
                 <td>
                   <a href="../../views/docente/RegistroAsistencia.html"><button class="btn btn-primary btn-delete" data-id="${doc.id}">
                   Asistencia
-                  </button>
+                  </button></a>
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
                   Silabus
                   </button>
