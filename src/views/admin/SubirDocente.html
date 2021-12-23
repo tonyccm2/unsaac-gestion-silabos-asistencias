@@ -38,6 +38,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
+    
+    <!-- leer xml -->
+    <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+
 </head>
 
 <body>
@@ -86,12 +90,15 @@
                             <div>
                                 <input type="file" id="inputfile-Docente" class="p-2">
                             </div>
-                            <button id="btn-cargar-docentes" class="btn btn-primary p-2" type="submit">
-                                Cargar
-                            </button>
                         </div>
+                        <div class="table-responsive">
+                            <table id="prelista-docentes" class="table table-bordered table-hover table-striped">   
+                            </table>
+                        </div>
+                        <button id="btn-cargar-docentes" class="btn btn-primary p-2" type="submit">
+                            Cargar
+                        </button>
                     </form>
-
                     <div class="mx-auto col-sm-9 main-section" id="myTab" role="tablist">
                         <ul class="nav nav-tabs justify-content-end">
                             <li class="nav-item">
@@ -118,10 +125,13 @@
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover table-striped" id="titles">
-                                                <td>Codigo</td>
-                                                <td>Nombres</td>
-                                                <td>EP</td>
+                                                <td>Código</td>
+                                                <td>Nombre</td>
+                                                <td>A paterno</td>
+                                                <td>A materno</td>
                                                 <td>Categoria</td>
+                                                <td>Regimen</td>
+                                                <td>Opciones</td>
                                             </table>
                                             <table id="lista-docentes"
                                                 class="table table-bordered table-hover table-striped">

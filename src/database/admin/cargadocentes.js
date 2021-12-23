@@ -176,19 +176,56 @@ var firebaseConfig = {
     }
   });  
 
+const prelistaContainer = document.getElementById("prelista-docentes");  
+
 inputfileDocente.addEventListener('change', () => {
     readXlsxFile(inputfileDocente.files[0]).then((data) => {
+
+
+      prelistaContainer.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+      <thead>
+        <tr>
+          <td>Código</td>
+          <td>Nombre</td>
+          <td>A paterno</td>
+          <td>A materno</td>
+          <td>Categoria</td>
+          <td>Regimen</td>
+        </tr>
+      </thead>
+    </table>`;
       data.forEach(row => {
         var arrayDeNombre = row[1].split(" ");
-        console.log(
-          row[0],
-          arrayDeNombre[0],
-          arrayDeNombre[1],
-          arrayDeNombre[2],
-        )
+        if(arrayDeNombre.length == 3){
+          prelistaContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+            <thead>          
+              <tr>
+                <td >${row[1]}</td>
+                <td >${arrayDeNombre[0]}</td>
+                <td >${arrayDeNombre[1]}</td>
+                <td >${arrayDeNombre[2]}</td>
+                <td >${"categoría"}</td>
+                <td >${"regimen"}</td>
+              </tr>
+            </thead>
+          </table>`;
+        }
+        if(arrayDeNombre.length == 4){
+          prelistaContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+            <thead>          
+              <tr>
+                <td >${row[1]}</td>
+                <td >${arrayDeNombre[0] + " " + arrayDeNombre[1]}</td>
+                <td >${arrayDeNombre[2]}</td>
+                <td >${arrayDeNombre[3]}</td>
+                <td >${"categoría"}</td>
+                <td >${"regimen"}</td>
+              </tr>
+            </thead>
+          </table>`;
+        }
       });
-      // `rows` is an array of rows
-      // each row being an array of cells.
+      
     })
   });
   

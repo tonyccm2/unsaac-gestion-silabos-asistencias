@@ -41,7 +41,18 @@ const alumnosContainer = document.getElementById("prelista-alumnos");
 
 inputfileAlumnos.addEventListener('change', () => {
   readXlsxFile(inputfileAlumnos.files[0]).then((data) => {  
-    alumnosContainer.innerHTML = "";
+    alumnosContainer.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+    <thead>          
+      <tr>
+        <td>Nro Orden</td>
+        <td>Codigo Alumno Curso</td>
+        <td>Codigo</td>
+        <td>Nombre</td>
+        <td>AP</td>
+        <td>AM</td>
+      </tr>
+    </thead>
+  </table>`;
 
     data.forEach(row => {
       var arrayDeNombre = row[2].split("-");
@@ -59,8 +70,6 @@ inputfileAlumnos.addEventListener('change', () => {
       </table>`;
     });
     
-    // `rows` is an array of rows
-    // each row being an array of cells.
   })
 });
 
@@ -77,7 +86,7 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
         var arrayDeNombre = row[2].split("-");
           saveAC(
             row[0],
-            row[1]+"",
+            row[1],
             row[1],
             arrayDeNombre[0],
             arrayDeNombre[1],
