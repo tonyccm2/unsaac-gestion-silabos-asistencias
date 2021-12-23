@@ -15,7 +15,9 @@ var firebaseConfig = {
 
 //guardar alumno curso
 const saveAC = (
+    nro_orden,
     codigo_ac,
+    codigo_alumno,
     nombres,
     ap,
     am,
@@ -23,12 +25,14 @@ const saveAC = (
     semestre
   ) =>
     db.collection("acs").doc().set({
-        codigo_ac,
-        nombres,
-        ap,
-        am,
-        codigo_carga,
-        semestre
+      nro_orden,
+      codigo_ac,
+      codigo_alumno,
+      nombres,
+      ap,
+      am,
+      codigo_carga,
+      semestre
     });
     const getCarga = (id) => db.collection("acs").doc(id).get();
   
@@ -45,6 +49,7 @@ inputfileAlumnos.addEventListener('change', () => {
         <thead>          
           <tr>
             <td >${row[0]}</td>
+            <td >${row[1]+"COD-CURSO"+"SEMESTRE"}</td>
             <td >${row[1]}</td>
             <td >${arrayDeNombre[0]}</td>
             <td >${arrayDeNombre[1]}</td>
@@ -59,3 +64,31 @@ inputfileAlumnos.addEventListener('change', () => {
   })
 });
 
+//boton cargar carga alumnos
+
+const formCargaAlumnos = document.getElementById("formCargaAlumnos");
+
+formCargaAlumnos.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    readXlsxFile(inputfileAlumnos.files[0]).then((data) => {
+      data.forEach(row => {
+        var arrayDeNombre = row[2].split("-");
+          saveAC(
+            row[0],
+            row[1]+"",
+            row[1],
+            arrayDeNombre[0],
+            arrayDeNombre[1],
+            arrayDeNombre[2],
+            "codigo_carga",
+            "semestre"
+          );
+      });
+    })
+    formCargaAcademica.reset();
+  } catch (error) {
+    console.log(error);
+  }
+});

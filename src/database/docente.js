@@ -59,16 +59,12 @@ var firebaseConfig = {
   //******************************************************************/
   //ventanas y funcionalidades
   
-  let idDocente;
   window.addEventListener("DOMContentLoaded", async (e) => {
-    let red;
     var value = localStorage.getItem('docente');
-    console.log(value)
     onGetCarga((querySnapshot) => {
       docentesContainer.innerHTML = "";
       querySnapshot.forEach((doc) => {
         const curso = doc.data();
-        console.log(curso.docente)
         if(curso.docente==value)
         {
                 // FRONT-END ?????????????

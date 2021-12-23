@@ -178,21 +178,15 @@ var firebaseConfig = {
 
 inputfileDocente.addEventListener('change', () => {
     readXlsxFile(inputfileDocente.files[0]).then((data) => {
-      
-      var cod = ""
       data.forEach(row => {
-        if(cod != row[0]){
-          cod = row[0]
-          
-          var arrayDeNombre = row[1].split(" ");
-          console.log(
-            row[0],
-            arrayDeNombre[0],
-            arrayDeNombre[1],
-            arrayDeNombre[2],)
-        }
+        var arrayDeNombre = row[1].split(" ");
+        console.log(
+          row[0],
+          arrayDeNombre[0],
+          arrayDeNombre[1],
+          arrayDeNombre[2],
+        )
       });
-      
       // `rows` is an array of rows
       // each row being an array of cells.
     })
