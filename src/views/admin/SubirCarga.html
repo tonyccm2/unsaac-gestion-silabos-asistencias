@@ -35,9 +35,9 @@
     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
-	<script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	<script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 
 </head>
 <body>
@@ -72,45 +72,34 @@
                 </nav>
             </div>
             <main  class="main col">
-                
-                    <div class="columna col-lg-6">
-                        
-            
-                       
-    <form id="formCargaAcademica" class="form" role="form" autocomplete="off">
-
-        <div class="container card p-3">
-            <div class="card-header p-2">
-                <h4>Subir carga academica</h4>
-            </div>
-            <div>
-                <input type="file" id="inputfile-Academica" class="p-2">
-            </div>
-            <button id="btn-cargar-cursos" class="btn btn-primary p-2" type="submit">
-                Cargar
-
-            </button>
-        </div>
-
-        <div class="table-responsive">
-
-                <table class="table table-bordered table-hover table-striped"" id = "titles">
-                    <td>Codigo</td>
-                    <td>Nombre</td>
-                    <td>AP</td>
-                    <td>AM</td>
-                    <td>Categoria</td>
-                    <td>Regimen</td>
-                </table>
-                <table id="prelista-docentes" class="table table-bordered table-hover table-striped">   
-                </table>
-            </div>
-    </form>
-                    </div>
-                
-                
+                <div class="columna col-lg-6">
+                    <form id="formCargaAcademica" class="form" role="form" autocomplete="off">
+                        <div class="container card p-3">
+                            <div class="card-header p-2">
+                                <h4>Subir carga academica</h4>
+                            </div>
+                            <div>
+                                <input type="file" id="inputfile-Academica" class="p-2">
+                            </div>
+                            <button id="btn-cargar-cursos" class="btn btn-primary p-2" type="submit">
+                                Cargar
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped" id = "titles">
+                                <td>Codigo</td>
+                                <td>Nombre</td>
+                                <td>AP</td>
+                                <td>AM</td>
+                                <td>Categoria</td>
+                                <td>Regimen</td>
+                            </table>
+                            <table id="prelista-docentes" class="table table-bordered table-hover table-striped">   
+                            </table>
+                        </div>
+                    </form>
+                </div>
             </main>
-            
         </div>
     </div>
 

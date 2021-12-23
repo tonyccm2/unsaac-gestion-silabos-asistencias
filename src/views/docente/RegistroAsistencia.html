@@ -9,50 +9,73 @@
       <link rel="stylesheet" href="main.css">
       <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+      
+      <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
       <title>Asistencia de Alumnos</title>
-      <script type="module" src="js/app.js"></script>
       
   </head>
   <body>
-      <header>
-          <nav class="navbar" role="navigation" aria-label="main navigation">
-              <div class="navbar-brand">
-                <a class="navbar-item" href="/">Asistencia de Alumnos</a>
-                
-              </div>
-            </nav>
-      </header>
-      <main class="main-content">
-          <div class="Asist-container">
-              <div class="Asist-header">
-                  <h1>Registro de Asistencia</h1>
-                  <button class="button is-success" id="botonSubir" >Subir</button>
-              </div>
-              <table class="table" id="tablaTitulo">
-                  <thead>
-                    <tr>
-                      <th>Numero</th>
-                      <th>Codigo</th>
-                      <th>Apellido P</th>
-                      <th>Apellido M</th>
-                      <th>Nombres</th>
-                      <th>Asistencia</th>
-                      <th>Asistencia</th>
-                    </tr>
-                  </thead>
+    <header>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="/">Asistencia de Alumnos</a>
               
-                  <tbody id="tabla">
-                  </tbody>
-                </table>
-                <div class="col_one_third col_last c-azul">
-                  <div  class="subir"> 
-                    <label for="nacimiento"><small></small></label>
-                    <input type="date" id="nacimiento"    class="sm-form-control">
-                    <button class="button is-success" id="openFecha"  type="submit">Fecha Nueva</button>
+            </div>
+          </nav>
+    </header>
+    <main class="main-content">
+        <div class="Asist-container">
+            <div class="columna">
+              <form id="formCargaAlumnos" class="form" role="form" autocomplete="off">
+                  <div class="container card p-3">
+                      <div class="card-header p-2">
+                          <h4>Subir alumnos de curso</h4>
+                      </div>
+                      <div>
+                          <input type="file" id="inputfile-Alumnos" class="p-2">
+                      </div>
                   </div>
-              </div>
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-hover table-striped" id = "titles">
+                          <td>Codigo</td>
+                          <td>Nombre</td>
+                          <td>AP</td>
+                          <td>AM</td>
+                      </table>
+                      <table id="prelista-alumnos" class="table table-bordered table-hover table-striped">   
+                      </table>
+                  </div>
+                  <button id="btn-cargar-cursos" class="btn btn-primary p-2" type="submit">
+                      Cargar
+                  </button>
+              </form>
           </div>
-      </main>
+
+            <table class="table" id="tablaTitulo">
+                <thead>
+                  <tr>
+                    <th>Numero</th>
+                    <th>Codigo</th>
+                    <th>Apellido P</th>
+                    <th>Apellido M</th>
+                    <th>Nombres</th>
+                    <th>Asistencia</th>
+                    <th>Asistencia</th>
+                  </tr>
+                </thead>
+            
+                <tbody id="tabla">
+                </tbody>
+              </table>
+              <div class="col_one_third col_last c-azul">
+                <div  class="subir"> 
+                  <label for="nacimiento"><small></small></label>
+                  <input type="date" id="nacimiento"    class="sm-form-control">
+                  <button class="button is-success" id="openFecha"  type="submit">Fecha Nueva</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -62,6 +85,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="WebBurger/public/js/mostrarContrasena.js"></script>
+
+    <script type="module" src="../../database/docente/cargaalumnos.js"></script>
   </body>
 </html>
