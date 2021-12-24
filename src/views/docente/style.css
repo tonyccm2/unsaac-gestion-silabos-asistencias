@@ -7,7 +7,7 @@ body {
 
 .barra {
     text-orientation: upright;
-    background: #F5F5F5;
+    background: #ED9B40;
     padding-top: 15px;
     margin: 0;
     color: #062236;
@@ -22,8 +22,8 @@ body {
 }
 
 .dropdown-menu {
-    margin: 17px;
-    background: #062236;
+    margin: 25px;
+    background: #262a34;
     color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.568);
 }
@@ -65,7 +65,7 @@ body {
 }
 
 .text-right {
-    background: #F5F5F5;
+    background: #ED9B40;
     padding: 50;
     
 }
