@@ -34,10 +34,16 @@ const saveAC = (
       codigo_carga,
       semestre
     });
-    const getCarga = (id) => db.collection("acs").doc(id).get();
+    const getAC = (id) => db.collection("acs").doc(id).get();
   
+    const onGetAC = (callback) =>
+      db.collection("acs").onSnapshot(callback);
+
 const inputfileAlumnos = document.getElementById('inputfile-Alumnos')
-const alumnosContainer = document.getElementById("prelista-alumnos");    
+const alumnosContainer = document.getElementById("prelista-alumnos");   
+
+var codigo_cargaLS = localStorage.getItem('codigo_carga');
+var semestreLS = localStorage.getItem('semestre'); 
 
 inputfileAlumnos.addEventListener('change', () => {
   readXlsxFile(inputfileAlumnos.files[0]).then((data) => {  
@@ -60,7 +66,7 @@ inputfileAlumnos.addEventListener('change', () => {
         <thead>          
           <tr>
             <td >${row[0]}</td>
-            <td >${row[1]+"COD-CURSO"+"SEMESTRE"}</td>
+            <td >${row[1]+codigo_cargaLS+semestreLS}</td>
             <td >${row[1]}</td>
             <td >${arrayDeNombre[0]}</td>
             <td >${arrayDeNombre[1]}</td>
@@ -82,22 +88,54 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
 
   try {
     readXlsxFile(inputfileAlumnos.files[0]).then((data) => {
+      var fila1=false;
       data.forEach(row => {
-        var arrayDeNombre = row[2].split("-");
+        if(fila1){
+          var arrayDeNombre = row[2].split("-");
           saveAC(
             row[0],
-            row[1],
+            row[1]+codigo_cargaLS+semestreLS,
             row[1],
             arrayDeNombre[0],
             arrayDeNombre[1],
             arrayDeNombre[2],
-            "codigo_carga",
-            "semestre"
+            codigo_cargaLS,
+            semestreLS
           );
+        }else{
+          fila1=true
+        }
+        
       });
     })
-    formCargaAcademica.reset();
+    formCargaAlumnos.reset();
   } catch (error) {
     console.log(error);
   }
+});
+
+const acsContainer = document.getElementById("lista-acs");
+window.addEventListener("DOMContentLoaded", async (e) => {
+  onGetAC((querySnapshot) => {
+    acsContainer.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+      const ac = doc.data();
+      if(ac.codigo_carga==codigo_cargaLS && ac.semestre==semestreLS)
+      {
+              // FRONT-END ?????????????
+        acsContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+          <thead>          
+            <tr>
+              <td>${ac.nro_orden}</td>
+              <td>${ac.codigo_alumno}</td>
+              <td>${ac.ap}</td>
+              <td>${ac.am}</td>
+              <td>${ac.nombres}</td>
+              <td><input type="checkbox" class="sm-form-control"></td>
+            </tr>
+          </thead>
+        </table>`;
+      }
+    });
+  });
 });

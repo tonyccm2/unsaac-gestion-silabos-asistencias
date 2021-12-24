@@ -13,6 +13,16 @@
       <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
       <title>Asistencia de Alumnos</title>
       
+      <!-- FIREBASE -->
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+
+      <!-- TODO: Add SDKs for Firebase products that you want to use
+          https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
+      <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+      
   </head>
   <body>
     <header>
@@ -67,8 +77,9 @@
                   </tr>
                 </thead>
             
-                <tbody id="tabla">
-                </tbody>
+                <table id="lista-acs"
+                    class="table table-bordered table-hover table-striped">
+                </table>
               </table>
               <div class="col_one_third col_last c-azul">
                 <div  class="subir"> 

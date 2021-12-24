@@ -76,9 +76,9 @@ var firebaseConfig = {
                 <td>${curso.curso}</td>
                 <td>${curso.cred}</td>
                 <td>
-                  <a href="../../views/docente/RegistroAsistencia.html"><button class="btn btn-primary btn-asistencia" data-id="${doc.id}">
+                  <button class="btn btn-primary btn-asistencia" data-id="${doc.id}">
                   Asistencia
-                  </button></a>
+                  </button>
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
                   Silabus
                   </button>
@@ -99,6 +99,7 @@ var firebaseConfig = {
           console.log(curso);
           localStorage.setItem('codigo_carga', curso.codigo_carga);
           localStorage.setItem('semestre', curso.semestre);
+          window.location="../../views/docente/RegistroAsistencia.html";
         })
       );
     });
