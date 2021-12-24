@@ -1,6 +1,6 @@
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
     apiKey: "AIzaSyC0zer2obvU5MQrJ2Pe-8_MMCzuwbB-ItU",
     authDomain: "tutoria-electron.firebaseapp.com",
     projectId: "tutoria-electron",
@@ -19,8 +19,8 @@ var firebaseConfig = {
   
   const formCargaAcademica = document.getElementById("formCargaAcademica");
 
-//guardar carga academica
-const saveCarga = (
+  //guardar carga academica
+  const saveCarga = (
     codigo_carga,
     carrera,
     curso,
@@ -55,6 +55,9 @@ const saveCarga = (
     const getCarga = (id) => db.collection("carga").doc(id).get();
   
     
+  const onGetCarga = (callback) =>
+    db.collection("carga").onSnapshot(callback);
+
   //boton cargar carga academica
   formCargaAcademica.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -120,3 +123,62 @@ const saveCarga = (
     })
   });
   
+
+  
+  const inputfileCarga = document.getElementById('inputfile-Academica')
+  const precargaContainer = document.getElementById("prelista-carga");  
+  
+  inputfileCarga.addEventListener('change', () => {
+    readXlsxFile(inputfileCarga.files[0]).then((data) => {  
+      precargaContainer.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+      <thead>          
+        <tr>
+          <td>Código</td>
+          <td>Carrera</td>
+          <td>Curso</td>
+          <td>Cred</td>
+          <td>Docente</td>
+          <td>Semestre</td>
+        </tr>
+      </thead>
+    </table>`;
+      data.forEach(row => {
+        precargaContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+          <thead>          
+            <tr>
+              <td>${row[0]}</td>
+              <td>${row[1]}</td>
+              <td>${row[2]}</td>
+              <td>${row[3]}</td>
+              <td>${row[13]}</td>
+              <td>${"semestre"}</td>}
+            </tr>
+          </thead>
+        </table>`;
+      });
+      
+    })
+  });
+
+  const cargaContainer = document.getElementById("lista-carga");
+  window.addEventListener("DOMContentLoaded", async (e) => {
+    onGetCarga((querySnapshot) => {
+      cargaContainer.innerHTML = "";
+  
+      querySnapshot.forEach((doc) => {
+        const carga = doc.data();
+        cargaContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+          <thead>          
+            <tr>
+              <td class="h6">${carga.codigo_carga}</td>
+              <td class="h6">${carga.carrera}</td>
+              <td class="h6">${carga.curso}</td>
+              <td class="h6">${carga.cred}</td>
+              <td class="h6">${carga.docente}</td>
+              <td class="h6">${carga.semestre}</td>
+            </tr>
+          </thead>
+        </table>`;
+      });
+    });
+  });

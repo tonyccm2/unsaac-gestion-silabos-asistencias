@@ -81,23 +81,35 @@
                             <div>
                                 <input type="file" id="inputfile-Academica" class="p-2">
                             </div>
-                            <button id="btn-cargar-cursos" class="btn btn-primary p-2" type="submit">
+                            <button id="btn-cargar-carga" class="btn btn-primary p-2" type="submit">
                                 Cargar
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped" id = "titles">
-                                <td>Codigo</td>
-                                <td>Nombre</td>
-                                <td>AP</td>
-                                <td>AM</td>
-                                <td>Categoria</td>
-                                <td>Regimen</td>
-                            </table>
-                            <table id="prelista-docentes" class="table table-bordered table-hover table-striped">   
+                            <table id="prelista-carga" class="table table-bordered table-hover table-striped">   
                             </table>
                         </div>
                     </form>
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped" id="titles">
+                            <thead>
+                                <tr>
+                                    <td>Código</td>
+                                    <td>Carrera</td>
+                                    <td>Curso</td>
+                                    <td>Cred</td>
+                                    <td>Docente</td>
+                                    <td>Semestre</td>
+                                </tr>
+                                </thead>
+                        </table>
+                        <table id="lista-carga"
+                            class="table table-bordered table-hover table-striped">
+                        </table>
+                    </div>
                 </div>
             </main>
         </div>
