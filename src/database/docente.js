@@ -76,7 +76,7 @@ var firebaseConfig = {
                 <td>${curso.curso}</td>
                 <td>${curso.cred}</td>
                 <td>
-                  <a href="../../views/docente/RegistroAsistencia.html"><button class="btn btn-primary btn-delete" data-id="${doc.id}">
+                  <a href="../../views/docente/RegistroAsistencia.html"><button class="btn btn-primary btn-asistencia" data-id="${doc.id}">
                   Asistencia
                   </button></a>
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
@@ -90,42 +90,17 @@ var firebaseConfig = {
   
       });
   
-      //funcionalidad boton-borrar
-      const btnsDelete = docentesContainer.querySelectorAll(".btn-delete");
-      btnsDelete.forEach((btn) =>
+      //funcionalidad boton-asistencia
+      const btnsAsistencia = docentesContainer.querySelectorAll(".btn-asistencia");
+      btnsAsistencia.forEach((btn) =>
         btn.addEventListener("click", async (e) => {
-          console.log(e.target.dataset.id);
-          try {
-            //borra el docente o manda mensaje aviso
-            await deleteCurso(e.target.dataset.id);
-          } catch (error) {
-            console.log(error);
-          }
+          const doc = await getCargaid(e.target.dataset.id);
+          const curso = doc.data();
+          console.log(curso);
+          localStorage.setItem('codigo_carga', curso.codigo_carga);
+          localStorage.setItem('semestre', curso.semestre);
         })
       );
-      // funcionalidad boton-editar
-      const btnsEdit = docentesContainer.querySelectorAll(".btn-edit");
-      btnsEdit.forEach((btn) => {
-        btn.addEventListener("click", async (e) => {
-          try {
-            const doc = await getCurso(e.target.dataset.id);
-            const curso = doc.data();
-            // recuperamos al form todos los valores
-            formDocente["CodigoCurso"].value = curso.codigo_carga;
-            formDocente["CarreraCurso"].value = curso.carrera;
-            formDocente["CursoCurso"].value = curso.curso;
-            formDocente["CreditoCurso"].value = curso.cred;
-  
-            //mostramos mas???
-            editStatus = true;
-            id = doc.id;
-            formDocente["btn-docente-form"].innerText = "Update";
-            //actualiza
-          } catch (error) {
-            console.log(error);
-          }
-        });
-      });
     });
   });
   
