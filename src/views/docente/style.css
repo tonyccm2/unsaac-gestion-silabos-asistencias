@@ -215,14 +215,21 @@ body {
 label{
     font-weight: bold;
 }
+/*form configuracion*/
+.modal-content{
+    padding: 2em;
+}
+.modal-body{
+    position: relative;
+    top: -20px;
+    left: -250px;
+
+}
 
 .nav-tabs .nav-item a:not(.active){
     background-color: #d1d3d6;
 }
 
-.modal-content{
-    width: 250%;
-}
 
 .nav-tabs{
     border-bottom:0px;
