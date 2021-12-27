@@ -107,6 +107,7 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
         }
         
       });
+      alert("carga de estudiantes del curso se guardó en la base de datos con exito");
     })
     formCargaAlumnos.reset();
   } catch (error) {

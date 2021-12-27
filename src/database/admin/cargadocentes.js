@@ -260,6 +260,7 @@ inputfileDocente.addEventListener('change', () => {
             );
           }
         });
+        alert("carga de docentes se guardó en la base de datos con exito");
       })
       formCargaDocente.reset();
     } catch (error) {
