@@ -19,7 +19,14 @@ body {
     
     padding-bottom: 10px;
 }
+.main {
+  padding-top: 50px;
+}
 
+.main .columna {
+  padding-left: 20px;
+  padding-right: 30px;
+}
 /*color de los botones*/
 .button.is-success {
     background-color: #e38307;
@@ -50,7 +57,7 @@ body {
 }
 
 .Asist-container {
-  width: 60%;
+  width: 100%;
   border: 1px solid;
   padding: 2rem 3rem;
   overflow: auto;
