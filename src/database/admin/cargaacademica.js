@@ -86,6 +86,7 @@
             );
           }
         });
+        alert("carga academica se guardó en la base de datos con exito");
       })
       formCargaAcademica.reset();
     } catch (error) {

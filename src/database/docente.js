@@ -25,36 +25,12 @@ var firebaseConfig = {
    * @param {string} title the title of the Task
    * @param {string} description the description of the Task
    */
-  const saveCourses = (
-    codCourse,
-    nameCourse,
-    categoryCourse,
-  ) =>
-    db.collection("Courses").doc().set({
-        codCourse,
-        nameCourse,
-        categoryCourse,
-    });
-  // recupera el codigo
-  const onGetCodigos = (callback) =>
-    db.collection("codigos").onSnapshot(callback);
-  const codigos=() => db.collection('codigos').get();
-
-  const deleteCodigo = (id) => db.collection("codigos").doc(id).delete();
-
-
+  
   //recupera los carga
   const getCarga = () => db.collection("carga").get();
   
   const onGetCarga = (callback) =>
     db.collection("carga").onSnapshot(callback);
-  //borrar
-  const deleteCarga = (id) => db.collection("carga").doc(id).delete();
-  //recupera 1 Courses por ID
-  const getCargaid = (id) => db.collection("carga").doc(id).get();
-  //actualiza
-  const updateCarga = (id, updatedCourses) =>
-    db.collection("carga").doc(id).update(updatedCourses);
   
   //******************************************************************/
   //ventanas y funcionalidades
