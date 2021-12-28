@@ -82,7 +82,15 @@ var firebaseConfig = {
       );
     });
   });
-  
+  //funcionalidad boton- silabus
+  const btnsSilabus = docentesContainer.querySelectorAll(".btn-edit");
+  btnsSilabus.forEach((btn) =>
+    btn.addEventListener("click", async (e) => {
+      const doc = await getCargaid(e.target.dataset.id);
+      const curso = doc.data();
+      window.location="../../views/docente/formularioSilabus.html";
+    })
+  );
   //funcionalidad cerrar sesion
 formCerrarSesion.addEventListener("submit", async (e) => {
   e.preventDefault();
