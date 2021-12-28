@@ -1,0 +1,97 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap");
+
+:root {
+  --dark: #001233;
+  --blanco: #ffffff;
+  --amarillo: #ffb703;
+  --naranja: #ED9B40;
+}
+body {
+  font-family: "Comfortaa", cursive;
+}
+
+/*color de los botones*/
+.button.is-success {
+    background-color: #e38307;
+    border-color: transparent;
+    color: #fff;
+}
+
+
+/*css en el mainmain*/
+.main-content-Silabus {
+  /*height: 92vh;*/
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+}
+
+.Asist-container-Silabus {
+  width: 80%;
+  border: 1px solid;
+  padding: 2rem 3rem;
+  overflow: auto;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+}
+
+.sumilla-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.competencia-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.resultadosaprendizaje-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.estrategiametodologica-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.referenciasbibliograficas-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.estrategiametodologica-control
+{
+  width: 100%;
+  height: 150px;
+  border: none;
+}
+.table  
+{
+  border:solid;
+  border-radius: 3px;
+}
+.table th
+{
+  background-color: rgb(23, 118, 207);
+}
+.txt
+{
+  width: 100%;
+  height: 100px;
+}
+.txtArea
+{
+  width: 100%;
+  height: 100px;
+}
+.main-content-Silabus
+{
+  margin-top: 15px;
+}
