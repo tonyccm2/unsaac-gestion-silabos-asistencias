@@ -31,6 +31,8 @@ var firebaseConfig = {
   
   const onGetCarga = (callback) =>
     db.collection("carga").onSnapshot(callback);
+  //recupera 1 Courses por ID
+  const getCargaid = (id) => db.collection("carga").doc(id).get();
   
   //******************************************************************/
   //ventanas y funcionalidades
