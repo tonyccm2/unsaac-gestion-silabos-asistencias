@@ -79,7 +79,7 @@ body {
 }
 .table th
 {
-  background-color: rgb(23, 118, 207);
+  background-color: #060C2D;
 }
 .txt
 {
@@ -94,4 +94,8 @@ body {
 .main-content-Silabus
 {
   margin-top: 15px;
+}
+.table th:not([align]) {
+  text-align: inherit;
+  color: white;
 }
