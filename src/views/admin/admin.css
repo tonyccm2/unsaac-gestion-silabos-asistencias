@@ -44,10 +44,10 @@ body {
 /*BARRA LATERAL*/
 
 .barra-lateral {
-    background: #11075C;
+    background: #060C2D;
     color: #fff;
-    min-width: 350px;
-    min-height: 200vh;
+    min-width: 250px;
+    min-height: 100vh;
     padding: 0;
 }
 
@@ -73,7 +73,7 @@ body {
 }
 
 .active {
-    background: #FFFFFF;
+    background: #060C2D;
 }
 
 .barra-lateral .menu {
