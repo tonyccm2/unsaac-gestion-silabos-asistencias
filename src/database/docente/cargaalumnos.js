@@ -153,6 +153,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                 <button class="btn btn-secondary btn-falto" data-id="${doc.id}">
                 Faltó
                 </button>
+                
               </td>
 
             </tr>

@@ -60,6 +60,9 @@ var firebaseConfig = {
                   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
                   Silabus
                   </button>
+                  <button class="btn btn-secondary btn-ContenidoAca" data-id="${doc.id}">
+                  Contenido Academico
+                  </button>
                 </td>
               </tr>
             </thead>
@@ -78,6 +81,16 @@ var firebaseConfig = {
           localStorage.setItem('codigo_carga', curso.codigo_carga);
           localStorage.setItem('semestre', curso.semestre);
           window.location="../../views/docente/RegistroAsistencia.html";
+        })
+      );
+      //funcionalidad boton- Contenido Academico
+      const btnsContenido = docentesContainer.querySelectorAll(".btn-ContenidoAca");
+      btnsContenido.forEach((btn) =>
+        btn.addEventListener("click", async (e) => {
+          const doc = await getCargaid(e.target.dataset.id);
+          const curso = doc.data();
+          localStorage.setItem('codigo_carga', curso.codigo_carga);
+          window.location="../../views/docente/contenido_academico.html";
         })
       );
           //funcionalidad boton- silabus
