@@ -165,7 +165,18 @@
   window.addEventListener("DOMContentLoaded", async (e) => {
     onGetCarga((querySnapshot) => {
       cargaContainer.innerHTML = "";
-  
+      cargaContainer.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+      <thead>          
+        <tr>
+          <td>Código</td>
+          <td>Carrera</td>
+          <td>Curso</td>
+          <td>Cred</td>
+          <td>Docente</td>
+          <td>Semestre</td>
+        </tr>
+      </thead>
+    </table>`;
       querySnapshot.forEach((doc) => {
         const carga = doc.data();
         cargaContainer.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">

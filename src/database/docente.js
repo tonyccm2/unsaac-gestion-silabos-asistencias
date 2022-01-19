@@ -99,6 +99,7 @@ var firebaseConfig = {
         btn.addEventListener("click", async (e) => {
           const doc = await getCargaid(e.target.dataset.id);
           const curso = doc.data();
+          localStorage.setItem('codigo_carga', curso.codigo_carga);
           window.location="../../views/docente/formularioSilabus.html";
         })
       );
