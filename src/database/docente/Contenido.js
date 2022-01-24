@@ -23,15 +23,22 @@ const TemasContainer = document.getElementById("prelista-ContenidoAca");
 const saveContenidoAca = (
     Codigo_curso,
     tema,
-    tiempo_planificado
+    tiempo_planificado,
+    fecha,  
+  tiempo_realizado,  
+  observaciones 
   ) =>
     db.collection("ContenidoAca").doc().set({
       Codigo_curso,
       tema,
-      tiempo_planificado
-
+      tiempo_planificado,
+      fecha,  
+      tiempo_realizado,  
+      observaciones 
+      
     });
-
+  ///djkajbksdjbksdgkdgkdgsuh
+  
 const getContenido = (id) => db.collection("ContenidoAca").doc(id).get();
 const onGetContenido = (callback) =>
     db.collection("ContenidoAca").onSnapshot(callback);
@@ -43,13 +50,17 @@ formCargaContenidoAca.addEventListener("submit", async (e) => {
     try {
       readXlsxFile(inputfileContenidoAca.files[0]).then((data) => {
         var cod = ""
+        var num=0
         data.forEach(row => {
           //if(cod != row[0]){
            // cod=row[0]
             saveContenidoAca(
               row[0],
               row[1],
-              row[2]
+              row[2],
+              cod,  
+              num,  
+              cod,
             );
           //}
           
@@ -61,27 +72,6 @@ formCargaContenidoAca.addEventListener("submit", async (e) => {
       console.log(error);
     }
   });
-//
-// inputfileContenidoAca.addEventListener('change', () => {
-//   readXlsxFile(inputfileContenidoAca.files[0]).then((data) => {
-    
-//     var cod = ""
-//     data.forEach(row => {
-//       if(cod != row[0]){
-//         cod = row[0]
-//         console.log(
-//           row[0],
-//           row[1]
-          
-//           )
-//       }
-//     });
-//     // `rows` is an array of rows
-//     // each row being an array of cells.
-//   })
-// });
-
-
 ///
 //previsualizacion de temas a subir
 inputfileContenidoAca.addEventListener('change', () => {
@@ -112,24 +102,26 @@ inputfileContenidoAca.addEventListener('change', () => {
 });
 
    
-//tabla de temas 
-const saveTemas = (
-  fecha,  
-  tema,
-  tiempo_planificado,
-  tiempo_realizado,  
-  observaciones 
-) =>
-  db.collection("temasFecha").doc().set({
-    fecha,  
-    tema,
-    tiempo_planificado,
-    tiempo_realizado,  
-    observaciones 
-  });
-//tabla de temas
-const onGetAC = (callback) =>
-      db.collection("carga").onSnapshot(callback);
+// //tabla de temas 
+// const saveTemas = (
+//   codigoA,
+//   fecha,  
+//   tema,
+//   tiempo_planificado,
+//   tiempo_realizado,  
+//   observaciones 
+// ) =>
+//   db.collection("temasFecha").doc().set({
+//     codigoA,
+//     fecha,  
+//     tema,
+//     tiempo_planificado,
+//     tiempo_realizado,  
+//     observaciones 
+//   });
+// //tabla de temas
+// const onGetAC = (callback) =>
+//       db.collection("carga").onSnapshot(callback);
 
 
 const temas_Container = document.getElementById("lista-temas");
@@ -158,17 +150,44 @@ window.addEventListener("DOMContentLoaded", async (e) => {
             <tr>
               <td>
                 <form id="formFecha" class="form" role="form">
-                <input type="date" id="fecha-lista" class="sm-form-control">
+                  <input type="date" id="fecha-lista" class="sm-form-control">
                 </form>
               </td>
               <td class="h6">${aux.tema}</td>
               <td class="h6">${aux.tiempo_planificado}</td>
-              <td><input type="number" name="someid"></td>
+              <td><input type="number"  id= "horas-hechas" name="someid"${aux.tiempo_realizado}></td>
               <td><input id="Observaciones" class="Observaciones" type="text" placeholder="escriba alguna observacion"></td>             
+              <td>
+                <button class="btn btn-primary btn-Guardar" data-id="${doc.id}">
+                Guardar
+                </button>                
+              </td>
             </tr>
           </thead>
         </table>`;
       }
-    });  
+    }); 
+    //funcionalidad boton-asistencia
+    const btnsguardar = temas_Container.querySelectorAll(".btn-Guardar");
+
+    btnsguardar.forEach((btn) =>{
+      btn.addEventListener("click", async (e) => {
+        //var Fecha_lista=document.getElementById(".fecha-lista").value;
+        //var Fecha_lista = formFecha[".formFecha"].value;
+        var Horas_rea=document.getElementById(".horas-hechas").value;
+        var obs = document.getElementById(".Observaciones").value;
+        const doc = await getContenido(e.target.dataset.id);
+        const ac = doc.data();
+        saveTema(
+          ac.Codigo_curso,
+          ac.tema,
+          ac.tiempo_planificado,
+          //Fecha_lista,
+          Horas_rea,
+          obs
+        );
+      })
+    }); 
+
   });
 });
