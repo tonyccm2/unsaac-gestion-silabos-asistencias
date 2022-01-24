@@ -15,12 +15,16 @@ var firebaseConfig = {
 
 //guardar asistencia
 const saveAsistencia = (
-    codigo_ac,
+    codigo_alumno,
+    codigo_carga,
+    semestre,
     fecha,
     estado
   ) =>
     db.collection("asistencias").doc().set({
-        codigo_ac,
+        codigo_alumno,
+        codigo_carga,
+        semestre,
         fecha,
         estado
     });
@@ -29,21 +33,25 @@ const saveAC = (
     nro_orden,
     codigo_ac,
     codigo_alumno,
-    nombres,
     ap,
     am,
+    nombres,
     codigo_carga,
-    semestre
+    semestre,
+    asistio,
+    falto
   ) =>
     db.collection("acs").doc().set({
       nro_orden,
       codigo_ac,
       codigo_alumno,
-      nombres,
       ap,
       am,
+      nombres,
       codigo_carga,
-      semestre
+      semestre,
+      asistio,
+      falto
     });
     const getAC = (id) => db.collection("acs").doc(id).get();
   
@@ -51,6 +59,9 @@ const saveAC = (
       db.collection("acs").onSnapshot(callback);
     //recupera 1 Courses por ID
       const getACid = (id) => db.collection("acs").doc(id).get();
+    
+    const updateAC = (id, updatedAC) =>
+      db.collection("acs").doc(id).update(updatedAC);
 
 const inputfileAlumnos = document.getElementById('inputfile-Alumnos')
 const alumnosContainer = document.getElementById("prelista-alumnos");   
@@ -66,9 +77,9 @@ inputfileAlumnos.addEventListener('change', () => {
         <td>Nro Orden</td>
         <td>Codigo Alumno Curso</td>
         <td>Codigo</td>
-        <td>Nombre</td>
         <td>AP</td>
         <td>AM</td>
+        <td>Nombres</td>
       </tr>
     </thead>
   </table>`;
@@ -113,7 +124,9 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
             arrayDeNombre[1],
             arrayDeNombre[2],
             codigo_cargaLS,
-            semestreLS
+            semestreLS,
+            0,
+            0
           );
         }else{
           fila1=true
@@ -131,7 +144,7 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
 const formFecha = document.getElementById("formFecha");
 const acsContainer = document.getElementById("lista-acs");
 window.addEventListener("DOMContentLoaded", async (e) => {
-  onGetAC((querySnapshot) => {
+  await onGetAC((querySnapshot) => {
     acsContainer.innerHTML = "";
     querySnapshot.forEach((doc) => {
       const ac = doc.data();
@@ -170,15 +183,28 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         var fechaSelecionada = formFecha["fecha-lista"].value;
         const doc = await getACid(e.target.dataset.id);
         const ac = doc.data();
-        console.log(ac, fechaSelecionada, "asistió");
         if(fechaSelecionada == ""){
           alert("debe seleccionar una fecha para guardar la asistencia de los alumnos.")
         }else{
           saveAsistencia(
-            ac.codigo_ac,
+            ac.codigo_alumno,
+            codigo_cargaLS,
+            semestreLS,
             fechaSelecionada,
             "asistió"
           );
+          updateAC(doc.id, {
+              nro_orden: ac.nro_orden,
+              codigo_ac: ac.codigo_ac,
+              codigo_alumno: ac.codigo_alumno,
+              ap: ac.ap,
+              am: ac.am,
+              nombres: ac.nombres,
+              codigo_carga: ac.codigo_carga,
+              semestre: ac.semestre,
+              asistio: ac.asistio+=1,
+              falto: ac.falto,
+          });
         }
       })
     });
@@ -191,15 +217,28 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         var fechaSelecionada2 = formFecha["fecha-lista"].value;
         const doc = await getACid(e.target.dataset.id);
         const ac = doc.data();
-        console.log(ac, fechaSelecionada2, "faltó");
         if(fechaSelecionada2 == ""){
           alert("debe seleccionar una fecha para guardar la asistencia de los alumnos.")
         }else{
           saveAsistencia(
-            ac.codigo_ac,
+            ac.codigo_alumno,
+            codigo_cargaLS,
+            semestreLS,
             fechaSelecionada2,
             "faltó"
           );
+          updateAC(doc.id, {
+              nro_orden: ac.nro_orden,
+              codigo_ac: ac.codigo_ac,
+              codigo_alumno: ac.codigo_alumno,
+              ap: ac.ap,
+              am: ac.am,
+              nombres: ac.nombres,
+              codigo_carga: ac.codigo_carga,
+              semestre: ac.semestre,
+              asistio: ac.asistio,
+              falto: ac.falto+=1,
+          });
         }
       })
     });
