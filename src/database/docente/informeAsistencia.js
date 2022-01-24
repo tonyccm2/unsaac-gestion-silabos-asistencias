@@ -22,6 +22,8 @@ var firebaseConfig = {
   
   const onGetAC = (callback) =>
   db.collection("acs").onSnapshot(callback);
+  
+  const getACid = (id) => db.collection("acs").doc(id).get();
 
   window.addEventListener("DOMContentLoaded", async (e) => {
     var codigo_cargaLS = localStorage.getItem('codigo_carga');
@@ -53,21 +55,29 @@ var firebaseConfig = {
                   <td>${ac.nombres}</td>
                   <td>${ac.asistio}</td>
                   <td>${ac.falto}</td>
+                  <td>
+                    <button class="btn btn-primary btn-detalles" data-id="${doc.id}">
+                    Detalles
+                    </button>
+                  </td>
                 </tr>
               </thead>
             </table>`;
           }
   
       });
-      //funcionalidad boton- silabus
-      const btnsSilabus = docentesContainer.querySelectorAll(".btn-edit");
-      btnsSilabus.forEach((btn) =>
-        btn.addEventListener("click", async (e) => {
-          const doc = await getCargaid(e.target.dataset.id);
-          const curso = doc.data();
-          window.location="../../views/docente/formularioSilabus.html";
-        })
-      );
+
+    //funcionalidad boton-asistencia
+    const btnsDetalles = listaAsistencia.querySelectorAll(".btn-detalles");
+
+    btnsDetalles.forEach((btn) =>{
+      btn.addEventListener("click", async (e) => {
+        const doc = await getACid(e.target.dataset.id);
+        const ac = doc.data();
+        localStorage.setItem('codigo_alumno', ac.codigo_alumno);
+        window.location="../../views/docente/informeDetallado.html";
+      })
     });
   });
+});
   
