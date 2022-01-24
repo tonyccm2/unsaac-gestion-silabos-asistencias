@@ -49,6 +49,7 @@ const formDocente = document.getElementById("formDocente");
                 }
         
             });
+            alert("Se Cambiaron los datos correctamente");
         });
         formDocente.reset();
     } catch (error) {

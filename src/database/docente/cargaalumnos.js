@@ -146,6 +146,18 @@ const acsContainer = document.getElementById("lista-acs");
 window.addEventListener("DOMContentLoaded", async (e) => {
   await onGetAC((querySnapshot) => {
     acsContainer.innerHTML = "";
+    acsContainer.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+    <thead>          
+      <tr>
+        <td>Nro Orden</td>
+        <td>Codigo</td>
+        <td>Apellido P</td>
+        <td>Apellido M</td>
+        <td>Nombres</td>
+        <td>Asistencia</td>
+      </tr>
+    </thead>
+  </table>`;
     querySnapshot.forEach((doc) => {
       const ac = doc.data();
       if(ac.codigo_carga==codigo_cargaLS && ac.semestre==semestreLS)

@@ -137,6 +137,17 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   var codigo_cargaLS = localStorage.getItem('codigo_carga');
   onGetContenido((querySnapshot) => {
     temas_Container.innerHTML = "";
+    temas_Container.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+    <thead>          
+      <tr>
+      <td>Fecha</td>
+        <td>Tema</td>
+        <td>Horas Planificadas</td>
+        <td>Horas Realizadas</td>
+        <td>Observaciones</td>
+      </tr>
+    </thead>
+  </table>`;
     querySnapshot.forEach((doc) => {
       var aux = doc.data();
       if(aux.Codigo_curso==codigo_cargaLS)
