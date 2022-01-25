@@ -49,7 +49,8 @@ formCargaContenidoAca.addEventListener("submit", async (e) => {
   
     try {
       readXlsxFile(inputfileContenidoAca.files[0]).then((data) => {
-        var cod = ""
+        var cod = "pulse el boton editar"
+        var fec = "dd/mm/aa"
         var num=0
         data.forEach(row => {
           //if(cod != row[0]){
@@ -58,7 +59,7 @@ formCargaContenidoAca.addEventListener("submit", async (e) => {
               row[0],
               row[1],
               row[2],
-              cod,  
+              fec,  
               num,  
               cod,
             );
@@ -125,8 +126,9 @@ inputfileContenidoAca.addEventListener('change', () => {
 
 
 const temas_Container = document.getElementById("lista-temas");
+var codigo_cargaLS = localStorage.getItem('codigo_carga');
 window.addEventListener("DOMContentLoaded", async (e) => {
-  var codigo_cargaLS = localStorage.getItem('codigo_carga');
+  
   onGetContenido((querySnapshot) => {
     temas_Container.innerHTML = "";
     temas_Container.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
@@ -148,18 +150,14 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         temas_Container.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
           <thead>          
             <tr>
-              <td>
-                <form id="formFecha" class="form" role="form">
-                  <input type="date" id="fecha-lista" class="sm-form-control">
-                </form>
-              </td>
+              <td class="h6">${aux.fecha}</td>
               <td class="h6">${aux.tema}</td>
               <td class="h6">${aux.tiempo_planificado}</td>
-              <td><input type="number"  id= "horas-hechas" name="someid"${aux.tiempo_realizado}></td>
-              <td><input id="Observaciones" class="Observaciones" type="text" placeholder="escriba alguna observacion"></td>             
+              <td class="h6">${aux.tiempo_realizado}</td>
+              <td class="h6"> ${aux.observaciones}</td>             
               <td>
                 <button class="btn btn-primary btn-Guardar" data-id="${doc.id}">
-                Guardar
+                Editar
                 </button>                
               </td>
             </tr>
@@ -172,22 +170,30 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     btnsguardar.forEach((btn) =>{
       btn.addEventListener("click", async (e) => {
-        //var Fecha_lista=document.getElementById(".fecha-lista").value;
-        //var Fecha_lista = formFecha[".formFecha"].value;
-        var Horas_rea=document.getElementById(".horas-hechas").value;
-        var obs = document.getElementById(".Observaciones").value;
         const doc = await getContenido(e.target.dataset.id);
         const ac = doc.data();
-        saveTema(
-          ac.Codigo_curso,
-          ac.tema,
-          ac.tiempo_planificado,
-          //Fecha_lista,
-          Horas_rea,
-          obs
-        );
+        localStorage.setItem('codigo_carga', ac.codigo_carga);
+        window.location="../../views/docente/editar_contenido.html";
       })
-    }); 
+    });
+    // btnsguardar.forEach((btn) =>{
+    //   btn.addEventListener("click", async (e) => {
+    //     //var Fecha_lista=document.getElementById(".fecha-lista").value;
+    //     //var Fecha_lista = formFecha[".formFecha"].value;
+    //     var Horas_rea=document.getElementById(".horas-hechas").value;
+    //     var obs = document.getElementById(".Observaciones").value;
+    //     const doc = await getContenido(e.target.dataset.id);
+    //     const ac = doc.data();
+    //     saveTema(
+    //       ac.Codigo_curso,
+    //       ac.tema,
+    //       ac.tiempo_planificado,
+    //       //Fecha_lista,
+    //       Horas_rea,
+    //       obs
+    //     );
+    //   })
+    // }); 
 
   });
 });
