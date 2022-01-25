@@ -8,54 +8,67 @@ var firebaseConfig = {
     appId: "1:933581286361:web:bbfe963bc60d1a770fc7c8",
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
   
 const db = firebase.firestore();
 
 
-const getPass = (id) => db.collection("docentes").doc(id).get();
+// const getPass = (id) => db.collection("docentes").doc(id).get();
   
-const onGetPass = (callback) =>
-    db.collection("docentes").onSnapshot(callback);
-//recupera 1 Courses por ID
-    const getAPass = (id) => db.collection("docentes").doc(id).get();
+// const onGetPass = (callback) =>
+//     db.collection("docentes").onSnapshot(callback);
+// //recupera 1 Courses por ID
+//     const getAPass = (id) => db.collection("docentes").doc(id).get();
 
-const formEmail = document.querySelector('#formEmail')
+const formUser = document.querySelector('#form-user')
 const inputemail = document.querySelector('#InputEmail')
 
-var Email = { 
-    send: function (a) { 
-        return new Promise(function (n, e) { 
-            a.nocache = Math.floor(1e6 * Math.random() + 1), a.Action = "Send"; 
-            var t = JSON.stringify(a); 
-            Email.ajaxPost("https://smtpjs.com/v3/smtpjs.aspx?", t, function (e) { n(e) }) }) }, 
-    ajaxPost: function (e, n, t) { 
-        var a = Email.createCORSRequest("POST", e); 
-        a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), 
-        a.onload = function () { var e = a.responseText; null != t && t(e) }, 
-        a.send(n) }, 
-    ajax: function (e, n) { var t = Email.createCORSRequest("GET", e); 
-        t.onload = function () { var e = t.responseText; null != n && n(e) }, t.send() }, 
-    createCORSRequest: function (e, n) { 
-        var t = new XMLHttpRequest; 
-        return "withCredentials" in t ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t } };
 
-formEmail.addEventListener('submit',async e => {
-    e.preventDefault();
-    const datos = {
-        Email: inputemail.value,
+
+const inputCodigo = document.querySelector('#InputCodigo')
+
+formUser.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const aux = {
+  
+    codigo: inputCodigo.value,
+  }
+  if(aux.codigo !== ''){
+    const document = {
+        contraseña:'',
+        codigo: '',
     }
-    Email.send({
-        SecureToken : "9b5bd31f-ef4c-4aa6-9cbf-39cf9f4c20a5",
-        To : "sistema.unsaac22@gmail.com",
-        From : Email,
-        Subject : "This is the subject",
-        Body : "And this is the body"
-    }).then(
-      message => alert(message)
-    );
-});
+  
+  const collectionDocente = await db.collection("docentes").get().then((querySnapshot) => {
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+        if(doc.data().codigo_docente === aux.codigo){
+          document.codigo= doc.data().codigo_docente
+            document.contraseña = doc.data().password
+        }
+    });
+  });
+    if(aux.codigo==document.codigo){
+      console.log("codigo igual");
+      window.location="../admin/admin.html"; 
+    }
+  }
+  formUser.reset();
+  
+})
+// function sendMail(params){
+// 	var	tempParams = {
+// 		to_name: document.getElementById("toName").value,
+// 		//from_name: document.getElementById("fromName").value,
+// 		email: document.getElementById("email").value,
+// 		message: document.getElementById("msg").value,		
+// 	};
 
+// 	emailjs.send('gmail','email_bruno',tempParams)
+// 	.then(function(res){
+// 		console.log("success", res.status);
+// 	})
+// }
 //mandando mi contraseña al correo ingresado 
 
 
