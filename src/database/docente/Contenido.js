@@ -102,34 +102,10 @@ inputfileContenidoAca.addEventListener('change', () => {
   })
 });
 
-   
-// //tabla de temas 
-// const saveTemas = (
-//   codigoA,
-//   fecha,  
-//   tema,
-//   tiempo_planificado,
-//   tiempo_realizado,  
-//   observaciones 
-// ) =>
-//   db.collection("temasFecha").doc().set({
-//     codigoA,
-//     fecha,  
-//     tema,
-//     tiempo_planificado,
-//     tiempo_realizado,  
-//     observaciones 
-//   });
-// //tabla de temas
-// const onGetAC = (callback) =>
-//       db.collection("carga").onSnapshot(callback);
-
-
 const temas_Container = document.getElementById("lista-temas");
 var codigo_cargaLS = localStorage.getItem('codigo_carga');
-window.addEventListener("DOMContentLoaded", async (e) => {
-  
-  onGetContenido((querySnapshot) => {
+
+onGetContenido((querySnapshot) => {
     temas_Container.innerHTML = "";
     temas_Container.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
     <thead>          
@@ -156,7 +132,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
               <td class="h6">${aux.tiempo_realizado}</td>
               <td class="h6"> ${aux.observaciones}</td>             
               <td>
-                <button class="btn btn-primary btn-Guardar" data-id="${doc.id}">
+                <button class="btn btn-primary btn-Editar" onClick="editar('${doc.id}','${aux.tema}','${aux.fecha}','${aux.tiempo_realizado}','${aux.observaciones}')">
                 Editar
                 </button>                
               </td>
@@ -164,36 +140,50 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           </thead>
         </table>`;
       }
-    }); 
-    //funcionalidad boton-asistencia
-    const btnsguardar = temas_Container.querySelectorAll(".btn-Guardar");
-
-    btnsguardar.forEach((btn) =>{
-      btn.addEventListener("click", async (e) => {
-        const doc = await getContenido(e.target.dataset.id);
-        const ac = doc.data();
-        localStorage.setItem('codigo_carga', ac.codigo_carga);
-        window.location="../../views/docente/editar_contenido.html";
-      })
     });
-    // btnsguardar.forEach((btn) =>{
-    //   btn.addEventListener("click", async (e) => {
-    //     //var Fecha_lista=document.getElementById(".fecha-lista").value;
-    //     //var Fecha_lista = formFecha[".formFecha"].value;
-    //     var Horas_rea=document.getElementById(".horas-hechas").value;
-    //     var obs = document.getElementById(".Observaciones").value;
-    //     const doc = await getContenido(e.target.dataset.id);
-    //     const ac = doc.data();
-    //     saveTema(
-    //       ac.Codigo_curso,
-    //       ac.tema,
-    //       ac.tiempo_planificado,
-    //       //Fecha_lista,
-    //       Horas_rea,
-    //       obs
-    //     );
-    //   })
-    // }); 
-
   });
-});
+  
+
+function guardar() {
+  var tema_A = document.getElementById("tema").value;
+  var fecha_A = document.getElementById("fecha").value;
+  var horas_real_A = document.getElementById("horas_real").value;
+  var observaciones_A = document.getElementById("observaciones").value;
+  db.collection("ContenidoAca").add({
+    tema:tema_A,
+    fecha: fecha_A,
+    tiempo_realizado: horas_real_A,
+    observaciones : observaciones_A
+  })
+  
+}
+
+//funcionalidad boton-asistencia
+const btnsguardar = temas_Container.querySelectorAll(".btn-Guardar");
+
+function editar(id,tema_A,fecha_A,horas_real_A,observaciones_A) {
+  
+  document.getElementById("tema").value=tema_A;
+  document.getElementById("fecha").value=fecha_A;
+  document.getElementById("horas_real").value =horas_real_A;
+  document.getElementById("observaciones").value=observaciones_A;
+
+  var boton = document.getElementById("botton");
+  boton.innerHTML='editar';
+  boton.onclick=function () {
+    var datos=db.collection("ContenidoAca").doc(id);
+    var tema_A=document.getElementById("tema").value;
+    var fecha_A=document.getElementById("fecha").value;
+    var  horas_real_A=document.getElementById("horas_real").value;
+    var observaciones_A =document.getElementById("observaciones").value;
+
+    return datos.update({
+      tema:tema_A,
+      fecha: fecha_A,
+      tiempo_realizado: horas_real_A,
+      observaciones : observaciones_A
+    })
+  }
+  
+  
+}
