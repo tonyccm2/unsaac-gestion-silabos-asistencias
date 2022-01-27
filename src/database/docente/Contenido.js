@@ -132,7 +132,7 @@ onGetContenido((querySnapshot) => {
               <td class="h6">${aux.tiempo_realizado}</td>
               <td class="h6"> ${aux.observaciones}</td>             
               <td>
-                <button class="btn btn-primary btn-Editar" onClick="editar('${doc.id}','${aux.tema}','${aux.fecha}','${aux.tiempo_realizado}','${aux.observaciones}')">
+                <button class="btn btn-primary btn-Editar" data-id="${doc.id}">
                 Editar
                 </button>                
               </td>
@@ -141,49 +141,18 @@ onGetContenido((querySnapshot) => {
         </table>`;
       }
     });
+    //boton 
+    const btnsguardar = temas_Container.querySelectorAll(".btn-Editar");
+    
+    btnsguardar.forEach((btn) =>
+      btn.addEventListener("click", async (e) => {
+        const doc = await getContenido(e.target.dataset.id);
+        const curso = doc.data();
+        localStorage.setItem('tema', curso.tema);
+        window.location="../../views/docente/editar_Tema.html";
+      })
+    );
+  
   });
   
-
-function guardar() {
-  var tema_A = document.getElementById("tema").value;
-  var fecha_A = document.getElementById("fecha").value;
-  var horas_real_A = document.getElementById("horas_real").value;
-  var observaciones_A = document.getElementById("observaciones").value;
-  db.collection("ContenidoAca").add({
-    tema:tema_A,
-    fecha: fecha_A,
-    tiempo_realizado: horas_real_A,
-    observaciones : observaciones_A
-  })
   
-}
-
-//funcionalidad boton-asistencia
-const btnsguardar = temas_Container.querySelectorAll(".btn-Guardar");
-
-function editar(id,tema_A,fecha_A,horas_real_A,observaciones_A) {
-  
-  document.getElementById("tema").value=tema_A;
-  document.getElementById("fecha").value=fecha_A;
-  document.getElementById("horas_real").value =horas_real_A;
-  document.getElementById("observaciones").value=observaciones_A;
-
-  var boton = document.getElementById("botton");
-  boton.innerHTML='editar';
-  boton.onclick=function () {
-    var datos=db.collection("ContenidoAca").doc(id);
-    var tema_A=document.getElementById("tema").value;
-    var fecha_A=document.getElementById("fecha").value;
-    var  horas_real_A=document.getElementById("horas_real").value;
-    var observaciones_A =document.getElementById("observaciones").value;
-
-    return datos.update({
-      tema:tema_A,
-      fecha: fecha_A,
-      tiempo_realizado: horas_real_A,
-      observaciones : observaciones_A
-    })
-  }
-  
-  
-}
