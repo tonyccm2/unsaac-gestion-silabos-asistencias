@@ -31,12 +31,13 @@ const formDocente = document.getElementById("formDocente");
         var password = formDocente["password"].value;
         var regimen = formDocente["regimen"].value;
         var categoria = formDocente["categoria"].value;
+        var cambio =true;
         onGetDocente((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 var docente = doc.data();
-                if(docente.codigo_docente==nombredocente)
+                if(docente.codigo_docente==nombredocente && cambio)
                 {
-                    console.log(password,regimen,categoria);
+                    console.log(password,regimen,categoria, docente);
                     updateDocente(doc.id, {
                         codigo_docente: docente.codigo_docente,
                         password: password,
@@ -46,10 +47,11 @@ const formDocente = document.getElementById("formDocente");
                         regimen: regimen,
                         categoria: categoria
                     });
+                    cambio=false;
+                    alert("Se Cambiaron los datos correctamente.");
                 }
         
             });
-            alert("Se Cambiaron los datos correctamente");
         });
         formDocente.reset();
     } catch (error) {

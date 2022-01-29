@@ -80,34 +80,27 @@
                         </svg><span>Asistencia de docente</span></a>
                 </nav>
             </div>
-            <main  class="main col">
-                <div class="row justify-content-center align-content-center text-center">
-                    <div class="p-4 columna">
-                        <p>Seleccione fecha que desea revisar</p>
-                    </div>
-                    <div class="p-4 columna">
-                        <form id="formFecha" class="form" role="form">
-                            <input type="date" id="fecha-lista" class="sm-form-control">
-                            <button id="btn-mostrar" class="btn btn-primary p-2" type="submit">
-                                Cargar
-                            </button>
-                        </form>
-                    </div>
-                    <div class="columna">
-                        Informe de Asistencia
-                        <table id="lista-asistencia"
-                            class="table table-bordered table-hover table-striped">
-                        </table>
-                    </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <main  class="main col">
+                        <div class="row justify-content-center align-content-center text-center">
+                            <div class="columna col-lg-6">
+                                Informe de Asistencia detallada
+                                <table id="lista-asistencia-detallado"
+                                    class="table table-bordered table-hover table-striped">
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </main>
+                    
                 </div>
-                
-            </main>
-            
+            </div>
         </div>
     </div>
 
 
-    <script type="module" src="../../database/docente/porcentaje.js"></script>
+    <script type="module" src="../../database/docente/asistenciaDocente.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

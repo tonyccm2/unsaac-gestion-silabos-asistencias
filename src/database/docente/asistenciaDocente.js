@@ -13,33 +13,31 @@ var firebaseConfig = {
 
   const db = firebase.firestore();
 
-  var citiesRef = db.collection("asistencias");
+  var citiesRef = db.collection("asistenciasDocentes");
   
-  const getAsistenciaAlumno = () => db.collection("asistencias").get().orderBy("fecha", "desc");
 
   //elementos del html
   const listaAsistencia = document.getElementById("lista-asistencia-detallado");
 
   //metodos para la base de datos
 
-  const ongetAsistencia = (callback) => db.collection("asistencias").orderBy("fecha").onSnapshot(callback);
+  const ongetAsistencia = (callback) => db.collection("asistenciasDocentes").orderBy("fecha").onSnapshot(callback);
   
 
   window.addEventListener("DOMContentLoaded", async (e) => {
-    var codigo_alumnoLS = localStorage.getItem('codigo_alumno');
+    var docenteLS = localStorage.getItem('docente');
     var semestreLS = localStorage.getItem('semestre');
     var codigo_cargaLS = localStorage.getItem('codigo_carga');
     ongetAsistencia((querySnapshot) => {
         listaAsistencia.innerHTML = "";
         querySnapshot.forEach((doc) => {
           const asistencia = doc.data();  
-          if(asistencia.codigo_alumno == codigo_alumnoLS && asistencia.semestre == semestreLS && asistencia.codigo_carga == codigo_cargaLS)
+          if(asistencia.codigo_docente == docenteLS && asistencia.semestre == semestreLS && asistencia.codigo_carga == codigo_cargaLS)
           {
             listaAsistencia.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
               <thead>          
                 <tr>
                   <td>${asistencia.fecha}</td>
-                  <td>${asistencia.estado}</td>
                 </tr>
               </thead>
             </table>`;

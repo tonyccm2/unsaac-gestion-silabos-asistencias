@@ -29,19 +29,17 @@ const saveAsistencia = (
         estado
     });
 //guardar asistencia docente
-const saveAsistenciaDocente = (
+const saveAsistenciaDocentes = (
     codigo_docente,
     codigo_carga,
     semestre,
-    fecha,
-    estado
+    fecha
   ) =>
-    db.collection("asistenciasDocente").doc().set({
-    codigo_docente,
+    db.collection("asistenciasDocentes").doc().set({
+        codigo_docente,
         codigo_carga,
         semestre,
-        fecha,
-        estado
+        fecha
     });
 //guardar alumno curso
 const saveAC = (
@@ -90,6 +88,7 @@ const alumnosContainer = document.getElementById("prelista-alumnos");
 
 var codigo_cargaLS = localStorage.getItem('codigo_carga');
 var semestreLS = localStorage.getItem('semestre'); 
+var docenteLS = localStorage.getItem('docente');
 
 inputfileAlumnos.addEventListener('change', () => {
   readXlsxFile(inputfileAlumnos.files[0]).then((data) => {  
@@ -156,37 +155,36 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
         }
         
       });
-      //update
-      
-      var nombredocente = localStorage.getItem('docente');
-      onGetCarga((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                var carga = doc.data();
-                if(carga.docente ==nombredocente)
-                {
-                    updateCarga(doc.id, {
-                      codigo_carga: carga.codigo_carga,
-                      carrera: carga.carrera,
-                      curso: carga.curso,
-                      cred: carga.cred,
-                      tipo: carga.tipo,
-                      gpo: carga.gpo,
-                      ht: carga.ht,
-                      hp: carga.hp,
-                      dia: carga.dia,
-                      hr_inicio: carga.hr_inicio,
-                      hr_fin: carga.hr_fin,
-                      aula: carga.aula,
-                      docente: carga.docente,
-                      semestre: carga.semestre,
-                      alumnos: cantidad
-                    });
-                }
-        
-            });
-        });
       alert("carga de estudiantes del curso se guardó en la base de datos con exito");
-    })
+    });
+    //update
+    var nombredocente = localStorage.getItem('docente');
+    onGetCarga((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              var carga = doc.data();
+              if(carga.docente ==nombredocente)
+              {
+                  updateCarga(doc.id, {
+                    codigo_carga: carga.codigo_carga,
+                    carrera: carga.carrera,
+                    curso: carga.curso,
+                    cred: carga.cred,
+                    tipo: carga.tipo,
+                    gpo: carga.gpo,
+                    ht: carga.ht,
+                    hp: carga.hp,
+                    dia: carga.dia,
+                    hr_inicio: carga.hr_inicio,
+                    hr_fin: carga.hr_fin,
+                    aula: carga.aula,
+                    docente: carga.docente,
+                    semestre: carga.semestre,
+                    alumnos: cantidad
+                  });
+              }
+      
+          });
+      });
     formCargaAlumnos.reset();
   } catch (error) {
     console.log(error);
@@ -194,6 +192,27 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
 });
 
 const formFecha = document.getElementById("formFecha");
+formFecha.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  try {
+    var fechaSelecionada1 = formFecha["fecha-lista"].value;
+    if(fechaSelecionada1 == ""){
+          alert("debe seleccionar una fecha para guardar su asistencia.")
+        }else{
+          saveAsistenciaDocentes(
+            docenteLS,
+            codigo_cargaLS,
+            semestreLS,
+            fechaSelecionada1,
+          );
+          alert("Docente, su asistencia se guardó con exito.")
+        }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 const acsContainer = document.getElementById("lista-acs");
 window.addEventListener("DOMContentLoaded", async (e) => {
   await onGetAC((querySnapshot) => {
