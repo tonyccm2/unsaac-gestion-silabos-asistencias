@@ -12,29 +12,9 @@ var firebaseConfig = {
   
 const db = firebase.firestore();
 
-// const getContenido = (id) => db.collection("ContenidoAca").doc(id).get();
-//  const onGetContenido = (callback) =>
-//     db.collection("ContenidoAca").onSnapshot(callback);
-
 var codigo_cargaLS = localStorage.getItem('codigo_carga');
 const listatemas = document.getElementById("lista-temas-informe");
-//var identificad = localStorage.getItem('tema');
-//
-// const document = {
-//     temaA:"",
-//     horas_plani: 0,
-//     horas_avanzada: 0,
-// }
-// const collectionTemas = await db.collection("ContenidoAca").get().then((querySnapshot) => {
-//     console.log(querySnapshot);
-//     querySnapshot.forEach((doc) => {
-//         if(doc.data().Codigo_curso === codigo_cargaLS){
-//             document.temaA      =   doc.data().tema
-//             document.horas_plani = doc.data().tiempo_planificado
-//             document.horas_avanzada = doc.data().tiempo_realizado
-//         }
-//     });
-// });
+
 const onGetContenido = (callback) => db.collection("ContenidoAca").onSnapshot(callback);
 window.addEventListener("DOMContentLoaded", async (e) => {
     var codigo_cargaLS = localStorage.getItem('codigo_carga');
