@@ -26,7 +26,9 @@ body {
 .main {
   padding-top: 50px;
 }
-
+.p-3{
+  width: 700px;
+}
 .main .columna {
   padding-left: 20px;
   padding-right: 30px;
@@ -65,6 +67,20 @@ body {
   width: 110%;
   border: 1px solid;
   padding: 2rem 3rem;
+  left: 1px;
+  overflow: auto;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+}
+
+.Asist-container1{
+  width: 199%;
+  position: relative; 
+  left: -200px; 
+  top: 1px;
+  border: 1px solid;
+  padding: 2rem 3rem;
+  padding-left: -12px;
   overflow: auto;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.4);
   border-radius: 0.5rem;

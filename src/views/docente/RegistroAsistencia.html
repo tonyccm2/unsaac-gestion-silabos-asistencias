@@ -35,6 +35,7 @@
 
   <!-- Nuestro css-->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="main.css">
 
   <!-- FIREBASE -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -94,7 +95,7 @@
       <main class="main col">
         <div class="row justify-content-center align-content-center text-center">
           <div class="columna col-lg-6">
-            <div class="Asist-container">
+            <div class="Asist-container1 ">
               <div class="columna">
                 <form id="formCargaAlumnos" class="form" role="form" autocomplete="off">
                   <div class="container card p-3">
@@ -133,54 +134,7 @@
 
             </div>
           </div>
-          <div class="columna">
-            <div class="Asist-container">
-              <div class="columna">
-                <form id="formCargaAlumnos" class="form" role="form" autocomplete="off">
-                  <div class=" card p-3">
-                    <div class="card-header p-2">
-                      <h4>Subir alumnos de curso</h4>
-                    </div>
-                    <div>
-                      <input type="file" id="inputfile-Alumnos" class="p-2">
-                    </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table id="prelista-alumnos" class="table table-bordered table-hover table-striped">
-                    </table>
-                  </div>
-                  <button id="btn-cargar-alumnos" class="btn btn-primary p-2" type="submit">
-                    Cargar
-                  </button>
-                </form>
-              </div>
-              <div class="p-4">
-                <p>Seleccione fecha para llamar Asistencia</p>
-              </div>
-              <div class="p-4">
-                <form id="formFecha" class="form" role="form">
-                  <input type="date" id="fecha-lista" class="sm-form-control">
-                </form>
-              </div>
-
-              <table class="table" id="tablaTitulo">
-                <thead>
-                  <tr>
-                    <th>Numero</th>
-                    <th>Codigo</th>
-                    <th>Apellido P</th>
-                    <th>Apellido M</th>
-                    <th>Nombres</th>
-                    <th>Asistencia</th>
-
-                  </tr>
-                </thead>
-
-                <table id="lista-acs" class="table table-bordered table-hover table-striped">
-                </table>
-              </table>
-            </div>
-          </div>
+          
         </div>
       </main>
     </div>
