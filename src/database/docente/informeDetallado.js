@@ -30,7 +30,7 @@ var firebaseConfig = {
     ongetAsistencia((querySnapshot) => {
         listaAsistencia.innerHTML = "";
         querySnapshot.forEach((doc) => {
-          const asistencia = doc.data();
+          const asistencia = doc.data();  
           if(asistencia.codigo_alumno == codigo_alumnoLS)
           {
             listaAsistencia.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
@@ -42,9 +42,6 @@ var firebaseConfig = {
               </thead>
             </table>`;
           }
-  
       });
-
+    }); 
   });
-});
-  

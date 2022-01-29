@@ -28,6 +28,21 @@ const saveAsistencia = (
         fecha,
         estado
     });
+//guardar asistencia docente
+const saveAsistenciaDocente = (
+    codigo_docente,
+    codigo_carga,
+    semestre,
+    fecha,
+    estado
+  ) =>
+    db.collection("asistenciasDocente").doc().set({
+    codigo_docente,
+        codigo_carga,
+        semestre,
+        fecha,
+        estado
+    });
 //guardar alumno curso
 const saveAC = (
     nro_orden,
@@ -60,8 +75,15 @@ const saveAC = (
     //recupera 1 Courses por ID
       const getACid = (id) => db.collection("acs").doc(id).get();
     
+    
     const updateAC = (id, updatedAC) =>
       db.collection("acs").doc(id).update(updatedAC);
+
+  //carga
+  const updateCarga = (id, updateCarga) => db.collection('carga').doc(id).update(updateCarga);
+  
+  const onGetCarga = (callback) =>
+    db.collection("carga").onSnapshot(callback);
 
 const inputfileAlumnos = document.getElementById('inputfile-Alumnos')
 const alumnosContainer = document.getElementById("prelista-alumnos");   
@@ -112,9 +134,9 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
 
   try {
     readXlsxFile(inputfileAlumnos.files[0]).then((data) => {
-      var fila1=false;
+      var cantidad = 0;
       data.forEach(row => {
-        if(fila1){
+        if(row[0]!="NRO"){
           var arrayDeNombre = row[2].split("-");
           saveAC(
             row[0],
@@ -128,11 +150,41 @@ formCargaAlumnos.addEventListener("submit", async (e) => {
             0,
             0
           );
+          cantidad+=1;
         }else{
-          fila1=true
+          console.log("fila no agregada");
         }
         
       });
+      //update
+      
+      var nombredocente = localStorage.getItem('docente');
+      onGetCarga((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                var carga = doc.data();
+                if(carga.docente ==nombredocente)
+                {
+                    updateCarga(doc.id, {
+                      codigo_carga: carga.codigo_carga,
+                      carrera: carga.carrera,
+                      curso: carga.curso,
+                      cred: carga.cred,
+                      tipo: carga.tipo,
+                      gpo: carga.gpo,
+                      ht: carga.ht,
+                      hp: carga.hp,
+                      dia: carga.dia,
+                      hr_inicio: carga.hr_inicio,
+                      hr_fin: carga.hr_fin,
+                      aula: carga.aula,
+                      docente: carga.docente,
+                      semestre: carga.semestre,
+                      alumnos: cantidad
+                    });
+                }
+        
+            });
+        });
       alert("carga de estudiantes del curso se guardó en la base de datos con exito");
     })
     formCargaAlumnos.reset();

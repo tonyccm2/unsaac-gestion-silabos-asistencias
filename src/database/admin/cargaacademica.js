@@ -34,7 +34,8 @@
     hr_fin,
     aula,
     docente,
-    semestre
+    semestre,
+    alumnos
   ) =>
     db.collection("carga").doc().set({
       codigo_carga,
@@ -50,7 +51,8 @@
       hr_fin,
       aula,
       docente,
-      semestre
+      semestre,
+      alumnos
     });
     const getCarga = (id) => db.collection("carga").doc(id).get();
   
@@ -82,7 +84,8 @@
               row[10],
               row[11],
               row[13],
-              "2021-II"
+              "2021-II",
+              0
             );
           }
         });
