@@ -34,6 +34,7 @@ const onGetContenido = (callback) => db.collection("ContenidoAca").orderBy("Codi
 var codigo_cargaLS = localStorage.getItem('codigo_carga');
 
 window.addEventListener("DOMContentLoaded", async (e) => {
+    var docenteLS = localStorage.getItem("docente");
     onGetContenido((querySnapshot) => {
       listaAsignaturas.innerHTML = "";
         listaAsignaturas.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
@@ -47,34 +48,41 @@ window.addEventListener("DOMContentLoaded", async (e) => {
             </thead>
         </table>`;
         var total_temas=0;
+        var curso ="";
         querySnapshot.forEach((doc) => {
           const temas = doc.data();
           
-          if(temas.Codigo_curso ===  )
+          if(temas.codigo_docente ===  docenteLS)
           {
-            
-            total_temas+=1;// var tiempo_plani=temas.tiempo_planificado-temas.tiempo_realizado ;
-            
-            //var texto="";
-            // if(){
-                
-            // }
-            listaAsignaturas.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
-            <thead>          
-                <tr>
-                    <td>${temas.Codigo_curso}</td>
-                    <td>${total_temas}</td>
-                               
-                    <td>Detalles</td>
-                </tr>
-                </thead>
-            </table>`;
-            
+            if(temas.Codigo_curso == curso)
+            {
+              total_temas+=1;
+            }else{
+              if(curso != "")
+              {
+                listaAsignaturas.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+                <thead>          
+                    <tr>
+                        <td>${curso}</td>
+                        <td>${total_temas}</td>
+                        <td>Detalles</td>
+                    </tr>
+                    </thead>
+                </table>`;
+              }
+                curso = temas.Codigo_curso;
+                total_temas=1;
+            }
           }
-          
-          
       });
-      
-
+      listaAsignaturas.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
+              <thead>          
+                  <tr>
+                      <td>${curso}</td>
+                      <td>${total_temas}</td>
+                      <td>Detalles</td>
+                  </tr>
+                  </thead>
+              </table>`;
   });
 });
