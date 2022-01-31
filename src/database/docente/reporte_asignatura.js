@@ -17,58 +17,64 @@ const listaAsignaturas = document.getElementById("lista-temas-asignatura");
 const circulo =document.getElementById("circles-1")
 //tablas de temas y cursos
 const onGetCarga = (callback) =>    db.collection("carga").onSnapshot(callback);
-const onGetContenido = (callback) => db.collection("ContenidoAca").onSnapshot(callback);
+const onGetContenido = (callback) => db.collection("ContenidoAca").orderBy("Codigo_curso").onSnapshot(callback);
 
-var cursoA = "";
-var codigo_cargaLS = localStorage.getItem('codigo_carga');
-const collectioncursos = await db.collection("carga").get().then((querySnapshot) => {
-    console.log(querySnapshot);
-    querySnapshot.forEach((doc) => {
-        if(doc.data().codigo_carga === codigo_cargaLS){
-            cursoA = doc.data().codigo_carga
+// var cursoA = "";
+
+// const collectioncursos = await db.collection("carga").get().then((querySnapshot) => {
+//     console.log(querySnapshot);
+//     querySnapshot.forEach((doc) => {
+//         if(doc.data().codigo_carga === codigo_cargaLS){
+//             cursoA = doc.data().codigo_carga
             
-        }
-    });
-});
+//         }
+//     });
+// });
+
+var codigo_cargaLS = localStorage.getItem('codigo_carga');
+
 window.addEventListener("DOMContentLoaded", async (e) => {
-    
     onGetContenido((querySnapshot) => {
-        listaAsignaturas.innerHTML = "";
+      listaAsignaturas.innerHTML = "";
         listaAsignaturas.innerHTML = `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
         <thead>          
             <tr>
                 <td>Codigo</td>
-                <td>Asignatura</td>
+                
                 <td>Porcentaje de avanze</td>            
                 <td>Detalles</td>
             </tr>
             </thead>
         </table>`;
+        var total_temas=0;
         querySnapshot.forEach((doc) => {
           const temas = doc.data();
-          if(temas.Codigo_curso == cursoA)
+          
+          if(temas.Codigo_curso ===  )
           {
-            // var tiempo_plani=temas.tiempo_planificado-temas.tiempo_realizado ;
-            var total_temas=0;
+            
+            total_temas+=1;// var tiempo_plani=temas.tiempo_planificado-temas.tiempo_realizado ;
+            
             //var texto="";
-            if(temas.tema!==''){
-                total_temas=total_temas+1;
-            }
-           
+            // if(){
+                
+            // }
             listaAsignaturas.innerHTML += `<table class = "table-striped table-bordered table-hover" id="tablaarticulos">
-              <thead>          
+            <thead>          
                 <tr>
-                  <td>${temas.fecha}</td>
-                  <td>${temas.tema}</td>
-                  <td>${temas.tiempo_planificado} </td>
-                  <td>${total_temas} </td>
-                  
+                    <td>${temas.Codigo_curso}</td>
+                    <td>${total_temas}</td>
+                               
+                    <td>Detalles</td>
                 </tr>
-              </thead>
+                </thead>
             </table>`;
+            
           }
-  
+          
+          
       });
+      
 
   });
 });

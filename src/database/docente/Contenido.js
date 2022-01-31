@@ -24,6 +24,7 @@ const saveContenidoAca = (
     Codigo_curso,
     tema,
     tiempo_planificado,
+    codigo_docente,
     fecha,  
   tiempo_realizado,  
   observaciones 
@@ -32,6 +33,7 @@ const saveContenidoAca = (
       Codigo_curso,
       tema,
       tiempo_planificado,
+      codigo_docente,
       fecha,  
       tiempo_realizado,  
       observaciones 
@@ -46,7 +48,7 @@ const onGetContenido = (callback) =>
 //boton cargar Temas
 formCargaContenidoAca.addEventListener("submit", async (e) => {
     e.preventDefault();
-  
+    var docenteLS=localStorage.getItem('docente');
     try {
       readXlsxFile(inputfileContenidoAca.files[0]).then((data) => {
         var cod = "pulse el boton editar"
@@ -59,6 +61,7 @@ formCargaContenidoAca.addEventListener("submit", async (e) => {
               row[0],
               row[1],
               row[2],
+              docenteLS,
               fec,  
               num,  
               cod,
