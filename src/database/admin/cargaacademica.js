@@ -58,7 +58,7 @@
   
     
   const onGetCarga = (callback) =>
-    db.collection("carga").onSnapshot(callback);
+    db.collection("carga").orderBy("codigo_carga").onSnapshot(callback);
 
   //boton cargar carga academica
   formCargaAcademica.addEventListener("submit", async (e) => {
