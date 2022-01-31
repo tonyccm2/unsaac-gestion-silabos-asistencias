@@ -38,7 +38,7 @@ var firebaseConfig = {
               <td>AM</td>
               <td>Nombres</td>
               <td>Asistió</td>
-              <td>Faltó</td>
+              <td>Total</td>
             </tr>
           </thead>
         </table>`;
@@ -54,7 +54,7 @@ var firebaseConfig = {
                   <td>${ac.am}</td>
                   <td>${ac.nombres}</td>
                   <td>${ac.asistio}</td>
-                  <td>${ac.falto}</td>
+                  <td>${ac.asistio / (ac.asistio + ac.falto) *100}%</td>
                   <td>
                     <button class="btn btn-primary btn-detalles" data-id="${doc.id}">
                     Detalles

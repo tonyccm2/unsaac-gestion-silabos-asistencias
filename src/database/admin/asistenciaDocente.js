@@ -25,7 +25,7 @@ var firebaseConfig = {
   
 
   window.addEventListener("DOMContentLoaded", async (e) => {
-    var docenteLS = localStorage.getItem('docente');
+    var docenteLS = localStorage.getItem('docenteAsistencia');
     var semestreLS = localStorage.getItem('semestre');
     var codigo_cargaLS = localStorage.getItem('codigo_carga');
     ongetAsistencia((querySnapshot) => {

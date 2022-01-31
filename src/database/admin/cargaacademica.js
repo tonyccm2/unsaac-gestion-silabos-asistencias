@@ -177,6 +177,7 @@
           <td>Cred</td>
           <td>Docente</td>
           <td>Semestre</td>
+          <td>Asistencia</td>
         </tr>
       </thead>
     </table>`;
@@ -191,9 +192,27 @@
               <td class="h6">${carga.cred}</td>
               <td class="h6">${carga.docente}</td>
               <td class="h6">${carga.semestre}</td>
+              <td>
+                <button class="btn btn-primary btn-detalles" data-id="${doc.id}">
+                Asistencia
+                </button>
+              </td>
             </tr>
           </thead>
         </table>`;
       });
+      
+    //funcionalidad boton-asistencia
+    const btnsDetalles = cargaContainer.querySelectorAll(".btn-detalles");
+
+    btnsDetalles.forEach((btn) =>{
+      btn.addEventListener("click", async (e) => {
+        const doc = await getCarga(e.target.dataset.id);
+        const ac = doc.data();
+        localStorage.setItem('codigo_carga', ac.codigo_carga);
+        localStorage.setItem('docenteAsistencia', ac.docente);
+        window.location="../../views/admin/asistenciaDocente.html";
+      })
+    });
     });
   });
