@@ -43,7 +43,7 @@ const saveContenidoAca = (
   
 const getContenido = (id) => db.collection("ContenidoAca").doc(id).get();
 const onGetContenido = (callback) =>
-    db.collection("ContenidoAca").onSnapshot(callback);
+    db.collection("ContenidoAca").orderBy("tema").onSnapshot(callback);
 
 //boton cargar Temas
 formCargaContenidoAca.addEventListener("submit", async (e) => {

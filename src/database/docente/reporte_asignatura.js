@@ -48,15 +48,22 @@ window.addEventListener("DOMContentLoaded", async (e) => {
             </thead>
         </table>`;
         var total_temas=0;
+        var tema_avanzado=0;
         var curso ="";
+        var porcentaje=0;
+        var tiempo_plani=0;
         querySnapshot.forEach((doc) => {
           const temas = doc.data();
-          
           if(temas.codigo_docente ===  docenteLS)
           {
             if(temas.Codigo_curso == curso)
             {
+              tiempo_plani=temas.tiempo_planificado-temas.tiempo_realizado ;
               total_temas+=1;
+              porcentaje=(tema_avanzado/total_temas)*100;
+              if(tiempo_plani===0){
+                tema_avanzado+=1;
+              }
             }else{
               if(curso != "")
               {
@@ -64,7 +71,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                 <thead>          
                     <tr>
                         <td>${curso}</td>
-                        <td>${total_temas}</td>
+                        <td>${porcentaje.toFixed(2)}%</td>
                         <td>Detalles</td>
                     </tr>
                     </thead>
@@ -72,6 +79,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
               }
                 curso = temas.Codigo_curso;
                 total_temas=1;
+                tema_avanzado=1;
+                porcentaje=1;
+                tiempo_plani=1;
             }
           }
       });
@@ -79,7 +89,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
               <thead>          
                   <tr>
                       <td>${curso}</td>
-                      <td>${total_temas}</td>
+                      <td>${porcentaje.toFixed(2)}%</td>
                       <td>Detalles</td>
                   </tr>
                   </thead>
