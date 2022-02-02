@@ -81,7 +81,8 @@ const saveAC = (
   const updateCarga = (id, updateCarga) => db.collection('carga').doc(id).update(updateCarga);
   
   const onGetCarga = (callback) =>
-    db.collection("carga").onSnapshot(callback);
+    db.collection("carga").orderBy("codigo_carga").onSnapshot(callback);
+    
 
 const inputfileAlumnos = document.getElementById('inputfile-Alumnos')
 const alumnosContainer = document.getElementById("prelista-alumnos");   
