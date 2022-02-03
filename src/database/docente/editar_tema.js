@@ -30,10 +30,11 @@ const formTema = document.getElementById("formTema");
         var fechaA = formTema["fecha"].value;
         var horasA = formTema["horas"].value;
         var obser = formTema["obs"].value;
+        var cambio =true;
         onGetContenido((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 var temas = doc.data();
-                if(temas.tema==identificad)
+                if(temas.tema==identificad && cambio)
                 {
                     console.log(fechaA,horasA,obser);
                     updateTema(doc.id, {
@@ -44,12 +45,14 @@ const formTema = document.getElementById("formTema");
                         tiempo_realizado:horasA,  
                         observaciones:obser 
                     });
+                    cambio=false;
+                    alert("Se Cambiaron los datos correctamente");
                 }
         
             });
-            alert("Se Cambiaron los datos correctamente");
+            
         });
-        formDocente.reset();
+        formTema.reset();
     } catch (error) {
         console.log(error);
     }
