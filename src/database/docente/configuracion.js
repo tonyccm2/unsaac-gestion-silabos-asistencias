@@ -29,23 +29,23 @@ const formDocente = document.getElementById("formDocente");
         var nombredocente = localStorage.getItem('docente');
         
         var password = formDocente["password"].value;
-        var regimen = formDocente["regimen"].value;
-        var categoria = formDocente["categoria"].value;
+        var docentes = formDocente["regimen"].value;
+        //var categoria = formDocente["categoria"].value;
         var cambio =true;
         onGetDocente((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 var docente = doc.data();
                 if(docente.codigo_docente==nombredocente && cambio)
                 {
-                    console.log(password,regimen,categoria, docente);
+                    console.log(password,docentes, docente);
                     updateDocente(doc.id, {
-                        codigo_docente: docente.codigo_docente,
+                        codigo_docente: docentes,
                         password: password,
                         nombre: docente.nombre,
                         ap: docente.ap,
                         am: docente.am,
-                        regimen: regimen,
-                        categoria: categoria
+                        regimen: docente.regimen,
+                        categoria: docente.categoria
                     });
                     cambio=false;
                     alert("Se Cambiaron los datos correctamente.");
